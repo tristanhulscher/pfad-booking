@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Painter For A Day | Envision Painting</title>
-<meta name="description" content="Book a professional Envision painter for a full day. No site visit, scheduled within 24 hours. Greater Victoria.">
+<meta name="description" content="Skip the quote. Book a pro Envision painter for a full day, online in 2 minutes. Greater Victoria. 4.9★ from 275 Google reviews.">
+<meta property="og:title" content="Skip the quote. Book a painter for the day.">
+<meta property="og:description" content="A pro Envision painter at your place for a full 8-hour day. Book online in 2 minutes. Greater Victoria.">
+<meta property="og:image" content="https://book.envisionpainting.co/assets/envision-team-mobile.jpg">
+<link rel="icon" href="assets/Envision-Logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ============================================================
-   SETUP: paste your Stripe Payment Link for each option below.
-   Stripe Dashboard → Payment Links → New. Create one link per
-   option (1, 2, 3 days). Leave as "" to show a test message.
-   ============================================================ */
-</style>
 <script>
+/* ============================================================
+   SETTINGS: everything you might change lives here.
+   ============================================================ */
 const CHECKOUT_LINKS = {   // LIVE Stripe links (Fall offer, campaign=pfad_facebook)
   1: "https://book.stripe.com/bJe7sK9ytbsI1Bwd1H7IY00",
   2: "https://book.stripe.com/eVq14m7ql54k7ZU4vb7IY01",
@@ -25,103 +25,142 @@ const CHECKOUT_LINKS = {   // LIVE Stripe links (Fall offer, campaign=pfad_faceb
 // Regular day rates (each additional day is cheaper).
 const DAY_RATES = [795, 695, 595];   // day 1, day 2, day 3
 
-// Email-list offer. Set on:false to show regular prices only.
+// Offer. Set on:false to show regular prices only.
 const OFFER = {
   on: true,
   label: "Fall booking special",
-  off: {1: 120, 2: 165, 3: 240},     // offer: $675 / $650 / $520 per day = $675 / $1,325 / $1,845
-  ends: "October 31"                 // shown on the page; "" to hide
+  off: {1: 120, 2: 165, 3: 240},     // offer: $675 / $1,325 / $1,845
+  ends: "October 31"                 // "" to hide
 };
+
 // Tags each Stripe booking with where it came from (shows on the payment in Stripe).
 const SOURCE = new URLSearchParams(location.search).get("utm_source") || "facebook";
-const PHONE = "(250) 813-2530";
-const EMAIL = "office@envisionpainting.ca";
 </script>
 <style>
 :root{
-  --ink:#14213d; --ink-2:#3d4a66; --muted:#6b7590;
-  --bg:#ffffff; --bg-2:#f5f6f9; --line:#e3e6ee;
-  --brand:#14213d; --accent:#e07a2e; --accent-dark:#c4631c;
-  --good:#1f8a5b; --radius:16px;
+  --teal:#00a0b8; --teal-dark:#008499; --teal-soft:#e3f6f9;
+  --ink:#27272a; --ink-2:#52525b; --muted:#71717a;
+  --bg:#ffffff; --bg-2:#f4f6f7; --line:#e4e4e7;
+  --good:#16865a; --star:#f5b301; --radius:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit}
+img{max-width:100%;display:block}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font:inherit;font-weight:700;text-decoration:none;border-radius:12px;transition:transform .08s,background .15s,box-shadow .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font:inherit;font-weight:700;text-decoration:none;border-radius:10px;transition:transform .08s,background .15s,box-shadow .15s}
 .btn:active{transform:scale(.98)}
-.btn-primary{background:var(--accent);color:#fff;padding:16px 26px;font-size:17px;box-shadow:0 6px 18px rgba(224,122,46,.35)}
-.btn-primary:hover{background:var(--accent-dark)}
-.btn-ghost{background:transparent;color:#fff;padding:14px 20px;border:1.5px solid rgba(255,255,255,.4)}
+.btn-primary{background:var(--teal);color:#fff;padding:16px 26px;font-size:17px;box-shadow:0 8px 20px rgba(0,160,184,.35)}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-ghost{background:transparent;color:#fff;padding:14px 20px;border:1.5px solid rgba(255,255,255,.35)}
+.stars{color:var(--star);letter-spacing:1px}
 
-/* top bar */
-.top{background:var(--brand);color:#fff;font-size:13px;text-align:center;padding:8px 16px}
-.top b{color:#ffc99b}
+/* top bar + header */
+.top{background:var(--teal);color:#fff;font-size:13px;font-weight:500;text-align:center;padding:9px 16px}
+.top b{font-weight:800}
 header.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}
-.logo span{color:var(--accent)}
+header.nav img{height:34px;width:auto}
 .nav a.call{font-weight:600;font-size:14px;text-decoration:none;color:var(--ink-2)}
 
 /* hero */
-.hero{background:linear-gradient(160deg,#14213d 0%,#1f3260 100%);color:#fff;border-radius:24px;padding:56px 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
-.eyebrow{display:inline-block;background:rgba(255,255,255,.12);padding:6px 12px;border-radius:99px;font-size:13px;font-weight:600;margin-bottom:18px}
-.hero h1{font-size:46px;line-height:1.08;letter-spacing:-.03em;font-weight:800;margin-bottom:16px}
-.hero h1 em{font-style:normal;color:#ffb47a}
-.hero p.lead{font-size:18px;color:#d5dbea;margin-bottom:26px;max-width:520px}
+.hero{background:linear-gradient(155deg,#27272a 0%,#1d3b42 100%);color:#fff;border-radius:24px;padding:52px 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.rating-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);padding:7px 13px;border-radius:99px;font-size:13px;font-weight:600;margin-bottom:18px}
+.hero h1{font-size:48px;line-height:1.05;letter-spacing:-.03em;font-weight:800;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:#5fd6e8}
+.hero p.lead{font-size:18px;color:#d4dde0;margin-bottom:26px;max-width:520px}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-.ticks{list-style:none;display:grid;gap:8px;font-size:15px;color:#e6eaf4}
-.ticks li::before{content:"✓";color:#7fe0b0;font-weight:800;margin-right:10px}
-.price-card{background:#fff;color:var(--ink);border-radius:20px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.price-card .from{font-size:14px;color:var(--muted);font-weight:600}
+.ticks{list-style:none;display:grid;gap:8px;font-size:15px;color:#e4ecee}
+.ticks li::before{content:"✓";color:#5fd6e8;font-weight:800;margin-right:10px}
+.price-card{background:#fff;color:var(--ink);border-radius:20px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.price-card .from{font-size:14px;color:var(--muted);font-weight:600;min-height:20px}
 .price-card .big{font-size:52px;font-weight:800;letter-spacing:-.03em;line-height:1}
-.was{font-size:15px;color:var(--muted);text-decoration:line-through;font-weight:600;min-height:20px}
-.offer-pill{display:inline-block;background:#fdeee2;color:var(--accent-dark);font-size:12px;font-weight:800;padding:4px 10px;border-radius:99px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
 .price-card .big small{font-size:16px;color:var(--muted);font-weight:600}
 .price-card hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 .price-card .row{display:flex;justify-content:space-between;font-size:15px;padding:4px 0}
 .price-card .row b{font-weight:700}
+.was{font-size:15px;color:var(--muted);text-decoration:line-through;font-weight:600;min-height:20px}
+.offer-pill{display:inline-block;background:var(--teal-soft);color:var(--teal-dark);font-size:12px;font-weight:800;padding:4px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.04em}
 
 /* trust strip */
-.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:28px 0;text-align:center}
-.trust div{font-size:14px;color:var(--ink-2)}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:28px 0;text-align:center;align-items:center}
+.trust div{font-size:13px;color:var(--ink-2)}
 .trust strong{display:block;font-size:17px;color:var(--ink)}
+.trust img{height:40px;width:auto;margin:0 auto 4px}
 
 section{padding:56px 0}
 h2{font-size:34px;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px}
-.sub{color:var(--muted);font-size:17px;max-width:620px;margin-bottom:32px}
+.sub{color:var(--muted);font-size:17px;max-width:640px;margin-bottom:32px}
 .center{text-align:center}.center .sub{margin-left:auto;margin-right:auto}
+.eyebrow{display:block;color:var(--teal-dark);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
 
-/* ideal jobs */
+/* who it's for */
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.job{background:var(--bg-2);border-radius:var(--radius);padding:22px}
-.job .ic{font-size:28px;margin-bottom:10px}
-.job h3{font-size:16px;margin-bottom:4px}
-.job p{font-size:14px;color:var(--muted)}
+.who{background:var(--bg-2);border-radius:var(--radius);padding:24px}
+.who .ic{font-size:28px;margin-bottom:10px}
+.who h3{font-size:17px;margin-bottom:6px}
+.who p{font-size:14px;color:var(--ink-2)}
+
+/* skip the quote comparison */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.col{border-radius:var(--radius);padding:28px}
+.col.old{background:var(--bg-2)}
+.col.new{background:var(--teal-soft);border:2px solid var(--teal)}
+.col h3{font-size:18px;margin-bottom:16px}
+.col ol{list-style:none;display:grid;gap:12px;counter-reset:c}
+.col li{counter-increment:c;display:flex;gap:12px;font-size:15px;align-items:flex-start}
+.col li::before{content:counter(c);flex:0 0 26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800}
+.col.old li{color:var(--ink-2)}
+.col.old li::before{background:#d4d4d8;color:#fff}
+.col.new li::before{background:var(--teal);color:#fff}
+.col .total{margin-top:18px;font-weight:800;font-size:15px}
+.col.old .total{color:var(--muted)}
+.col.new .total{color:var(--teal-dark)}
 
 /* builder */
 .builder{background:var(--bg-2);border-radius:24px;padding:40px}
 .opts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
 .opt{position:relative;background:#fff;border:2px solid var(--line);border-radius:var(--radius);padding:22px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .15s,box-shadow .15s}
-.opt:hover{border-color:#c5cbe0}
-.opt[aria-checked="true"]{border-color:var(--accent);box-shadow:0 0 0 4px rgba(224,122,46,.15)}
+.opt:hover{border-color:#a1a1aa}
+.opt[aria-checked="true"]{border-color:var(--teal);box-shadow:0 0 0 4px rgba(0,160,184,.15)}
 .opt .tag{position:absolute;top:-11px;left:18px;background:var(--good);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.04em}
 .opt .days{font-weight:700;font-size:17px}
-.opt .amt{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:6px 0 2px}
+.opt .amt{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:2px 0 2px}
 .opt .per{font-size:13px;color:var(--muted)}
+.opt .fits{font-size:13px;color:var(--ink-2);margin-top:8px}
 .opt .save{font-size:13px;color:var(--good);font-weight:700;margin-top:6px;min-height:18px}
 .opt .radio{position:absolute;top:20px;right:20px;width:22px;height:22px;border-radius:50%;border:2px solid var(--line)}
-.opt[aria-checked="true"] .radio{border:7px solid var(--accent)}
+.opt[aria-checked="true"] .radio{border:7px solid var(--teal)}
 .summary{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#fff;border-radius:var(--radius);padding:22px 26px;flex-wrap:wrap}
 .summary .tot{font-size:15px;color:var(--muted)}
 .summary .tot b{display:block;font-size:28px;color:var(--ink);letter-spacing:-.02em}
-.secure{font-size:13px;color:var(--muted);margin-top:14px;text-align:center}
+.fine{font-size:13px;color:var(--ink-2);margin-top:14px;text-align:center;max-width:640px;margin-left:auto;margin-right:auto}
+.secure{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
 .more{font-size:14px;color:var(--ink-2);margin-top:10px;text-align:center}
+
+/* reviews */
+.rv-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+.rv-head img{height:28px;width:auto}
+.rv-head .score{font-size:28px;font-weight:800}
+.rv-head .count{color:var(--muted);font-size:15px}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rv{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;gap:10px}
+.rv.feature{grid-column:span 3;background:var(--teal-soft);border-color:var(--teal)}
+.rv.feature blockquote{font-size:19px;font-weight:600}
+.rv blockquote{font-size:15px;color:var(--ink)}
+.rv .who-r{font-size:13px;color:var(--muted);font-weight:600;margin-top:auto}
+.rv .badge{display:inline-block;background:var(--teal);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.04em;width:max-content}
+.rv-link{display:block;text-align:center;margin-top:20px;font-weight:600;color:var(--teal-dark)}
+
+/* team */
+.team{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.team img{border-radius:var(--radius);width:100%;height:auto}
+.team p{color:var(--ink-2);margin-bottom:12px}
 
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
 .step{counter-increment:s}
-.step::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;margin-bottom:14px}
+.step::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;margin-bottom:14px}
 .step h3{font-size:17px;margin-bottom:4px}
 .step p{font-size:14px;color:var(--muted)}
 
@@ -130,7 +169,7 @@ h2{font-size:34px;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px}
 .box{border:1px solid var(--line);border-radius:var(--radius);padding:26px}
 .box h3{font-size:18px;margin-bottom:12px}
 .box ul{list-style:none;display:grid;gap:10px;font-size:15px}
-.box.yes li::before{content:"✓";color:var(--good);font-weight:800;margin-right:10px}
+.box.yes li::before{content:"✓";color:var(--teal);font-weight:800;margin-right:10px}
 .box.no li::before{content:"–";color:var(--muted);font-weight:800;margin-right:12px}
 .box.no li{color:var(--ink-2)}
 
@@ -143,31 +182,29 @@ summary::after{content:"+";font-size:22px;color:var(--muted);line-height:1}
 details[open] summary::after{content:"–"}
 details p{color:var(--ink-2);margin-top:10px;font-size:15px}
 
-.final{background:var(--brand);color:#fff;border-radius:24px;padding:52px 32px;text-align:center}
+.final{background:linear-gradient(155deg,#27272a 0%,#1d3b42 100%);color:#fff;border-radius:24px;padding:52px 32px;text-align:center}
 .final h2{color:#fff}
-.final p{color:#d5dbea;margin-bottom:24px}
+.final p{color:#d4dde0;margin-bottom:24px}
 footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
+footer img{height:28px;width:auto;margin:0 auto 12px}
 
 /* sticky mobile bar */
-.sticky{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:none;align-items:center;justify-content:space-between;gap:12px;z-index:50;box-shadow:0 -6px 20px rgba(20,33,61,.08)}
+.sticky{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:none;align-items:center;justify-content:space-between;gap:12px;z-index:50;box-shadow:0 -6px 20px rgba(0,0,0,.08)}
 .sticky .t{font-size:13px;color:var(--muted)}
 .sticky .t b{display:block;font-size:19px;color:var(--ink)}
 .sticky .btn-primary{padding:14px 20px;font-size:16px}
 
-/* toast */
-.toast{position:fixed;left:50%;top:20px;transform:translateX(-50%) translateY(-120%);background:var(--ink);color:#fff;padding:14px 18px;border-radius:12px;font-size:14px;max-width:92vw;z-index:60;transition:transform .25s}
-.toast.show{transform:translateX(-50%) translateY(0)}
-
 @media (max-width:860px){
   .hero{grid-template-columns:1fr;padding:36px 22px;border-radius:0;margin:0 -20px}
-  .hero h1{font-size:34px}
+  .hero h1{font-size:36px}
   .trust{grid-template-columns:repeat(2,1fr)}
   .grid4,.steps{grid-template-columns:repeat(2,1fr)}
-  .opts{grid-template-columns:1fr}
-  .two{grid-template-columns:1fr}
+  .opts,.compare,.two,.team{grid-template-columns:1fr}
+  .reviews{grid-template-columns:1fr}
+  .rv.feature{grid-column:auto}
   .builder{padding:24px 16px;border-radius:0;margin:0 -20px}
   .summary{display:none}
-  h2{font-size:27px}
+  h2{font-size:28px}
   .sticky{display:flex}
   section{padding:40px 0}
   .final{border-radius:0;margin:0 -20px}
@@ -180,27 +217,27 @@ footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
 </head>
 <body>
 
-<div class="top" id="topbar"><b>Book online, no site visit needed</b> · Scheduled within 24 hours</div>
+<div class="top" id="topbar"><b>Book online, no estimate visit</b> · We call within 24 hours to schedule</div>
 
 <div class="wrap">
   <header class="nav">
-    <div class="logo">Envision<span>.</span> Painting</div>
+    <img src="assets/Envision-Logo.png" alt="Envision Painting Ltd" width="160" height="34">
     <a class="call" href="tel:+12508132530">📞 (250) 813-2530</a>
   </header>
 
   <div class="hero">
     <div>
-      <span class="eyebrow">🎨 Painter For A Day · Greater Victoria</span>
-      <h1>Those small jobs you keep putting off? <em>Done in a day.</em></h1>
-      <p class="lead">Book a professional Envision painter for a full 8-hour day. No estimate visit, no back-and-forth. Pick your days, pay online and we'll schedule you within 24 hours.</p>
+      <span class="rating-pill"><span class="stars">★★★★★</span> 4.9 from 275 Google reviews</span>
+      <h1>Skip the quote. <em>Book a painter for the day.</em></h1>
+      <p class="lead">A pro Envision painter at your place for a full 8 hours. No estimate visit, no waiting on a quote, no chasing contractors. Book online in 2 minutes and we'll call within 24 hours to lock in your date.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#book">Book my painter →</a>
         <a class="btn btn-ghost" href="#how">How it works</a>
       </div>
       <ul class="ticks">
         <li>8 full hours of professional painting</li>
-        <li>Basic prep materials included</li>
-        <li>Background-checked, insured, WCB-covered painters</li>
+        <li>Prep materials, tools and clean-up included</li>
+        <li>Envision employees: insured, WCB-covered, background-checked</li>
       </ul>
     </div>
     <div class="price-card">
@@ -217,30 +254,62 @@ footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
   </div>
 
   <div class="trust">
-    <div><strong>A+ BBB</strong>Accredited business</div>
-    <div><strong>$3M liability</strong>Plus WCB coverage</div>
-    <div><strong>Low-VOC paints</strong>Safe for your home</div>
-    <div><strong>Family-run</strong>Local to Victoria</div>
+    <div><img src="assets/google-review-logo.png" alt="Google" width="80" height="40"><strong>4.9 ★</strong>275 reviews</div>
+    <div><img src="assets/bbb-accredited-business.png" alt="BBB Accredited Business A+" width="80" height="40"><strong>A+ rated</strong>BBB accredited</div>
+    <div><strong>$3M insured</strong>Plus WCB coverage</div>
+    <div><strong>10+ years</strong>Local & family-run</div>
   </div>
 
   <section>
     <div class="center">
-      <h2>Perfect for</h2>
-      <p class="sub">If it fits in a day or three, it's a Painter For A Day job.</p>
+      <span class="eyebrow">Built for people who'd rather not wait</span>
+      <h2>Who books Painter For A Day</h2>
+      <p class="sub">If you want it done fast and done right, without the back-and-forth of getting a quote, this is for you.</p>
     </div>
     <div class="grid4">
-      <div class="job"><div class="ic">🏡</div><h3>Getting ready to sell</h3><p>Freshen up before listing photos or a move-in.</p></div>
-      <div class="job"><div class="ic">✋</div><h3>High-traffic touch-ups</h3><p>Hallways, stairwells, scuffed walls and trim.</p></div>
-      <div class="job"><div class="ic">🖌️</div><h3>Accent walls & small rooms</h3><p>Bathrooms, offices, nurseries, feature walls.</p></div>
-      <div class="job"><div class="ic">🚪</div><h3>Doors, frames & ceilings</h3><p>The odds and ends that never get done.</p></div>
+      <div class="who"><div class="ic">👨‍👩‍👧</div><h3>Busy families</h3><p>Get your weekends back. The scuffed hallway, the kid's room, the trim you keep meaning to do. Done in a day.</p></div>
+      <div class="who"><div class="ic">🔑</div><h3>Turnovers & rentals</h3><p>Between tenants, after move-out or before move-in. Freshen it up fast so the unit's ready on time.</p></div>
+      <div class="who"><div class="ic">🏡</div><h3>Realtors & sellers</h3><p>Pre-listing touch-ups before photos and showings. Clean walls sell homes. Lockbox access works.</p></div>
+      <div class="who"><div class="ic">✅</div><h3>The to-do list</h3><p>Accent walls, doors, ceilings, patch-and-paint. The small jobs most painters won't quote.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="center">
+      <span class="eyebrow">Why skip the quote?</span>
+      <h2>Days of back-and-forth, or two minutes</h2>
+      <p class="sub">Getting a painting quote usually means booking a visit, waiting on a proposal, then waiting for a start date. For smaller jobs, there's a faster way.</p>
+    </div>
+    <div class="compare">
+      <div class="col old">
+        <h3>The usual way</h3>
+        <ol>
+          <li>Call around and book estimate visits</li>
+          <li>Take time off to meet an estimator</li>
+          <li>Wait days for written quotes</li>
+          <li>Compare, follow up, wait for a start date</li>
+        </ol>
+        <div class="total">Often weeks before anyone picks up a brush</div>
+      </div>
+      <div class="col new">
+        <h3>Painter For A Day</h3>
+        <ol>
+          <li>Pick 1, 2 or 3 days and book online</li>
+          <li>Tell us the job and send a few photos</li>
+          <li>We call within 24 hours to set your date</li>
+          <li>Your painter shows up ready to work</li>
+        </ol>
+        <div class="total">2 minutes to book. No meetings, no quotes.</div>
+      </div>
     </div>
   </section>
 
   <section id="book">
     <div class="builder">
       <div class="center">
+        <span class="eyebrow" id="offer-eyebrow"></span>
         <h2>Choose your days</h2>
-        <p class="sub">The more days you book, the less each day costs. Not sure how many you need? Pick one and we'll confirm when we call.</p>
+        <p class="sub">The more days you book, the less each day costs. Not sure? Most single rooms or a batch of touch-ups fit in one day, and we'll confirm when we call.</p>
       </div>
       <div class="opts" role="radiogroup" aria-label="Number of days">
         <button class="opt" role="radio" aria-checked="true" data-days="1">
@@ -249,6 +318,7 @@ footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
           <div class="was"></div>
           <div class="amt"></div>
           <div class="per"></div>
+          <div class="fits">Great for: a room, an accent wall, touch-ups</div>
           <div class="save"></div>
         </button>
         <button class="opt" role="radio" aria-checked="false" data-days="2">
@@ -258,6 +328,7 @@ footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
           <div class="was"></div>
           <div class="amt"></div>
           <div class="per"></div>
+          <div class="fits">Great for: 2–3 rooms, a hallway + stairwell, doors & trim</div>
           <div class="save"></div>
         </button>
         <button class="opt" role="radio" aria-checked="false" data-days="3">
@@ -266,6 +337,7 @@ footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
           <div class="was"></div>
           <div class="amt"></div>
           <div class="per"></div>
+          <div class="fits">Great for: a rental turnover or pre-listing refresh</div>
           <div class="save"></div>
         </button>
       </div>
@@ -273,21 +345,66 @@ footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
         <div class="tot">Your total <b id="total"></b></div>
         <button class="btn btn-primary checkout">Book & pay securely →</button>
       </div>
-      <p class="secure">🔒 Secure checkout powered by Stripe · Apple Pay, Google Pay & all major cards</p>
+      <p class="fine">You're booking a painter's full 8-hour day, not a fixed job. Paint is extra (bring your own or we'll pick it up at cost). Paid in full at booking. No refunds, but unused time becomes a credit.</p>
+      <p class="secure">🔒 Secure checkout by Stripe · Apple Pay, Google Pay & all major cards</p>
       <p class="more">Need more than 3 days? Call <a href="tel:+12508132530">(250) 813-2530</a> and we'll build a plan.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="rv-head">
+      <img src="assets/google-review-logo.png" alt="Google" width="56" height="28">
+      <span class="score">4.9</span><span class="stars">★★★★★</span>
+      <span class="count">from 275 Google reviews</span>
+    </div>
+    <div class="reviews">
+      <div class="rv feature">
+        <span class="badge">Painter For A Day review</span>
+        <div class="stars">★★★★★</div>
+        <blockquote>"This time, we hired a Painter For a Day, and Jhon did an excellent job. He was courteous, punctual, detail-oriented AND he left the place cleaner than he found it."</blockquote>
+        <div class="who-r">Erin K. · repeat client since 2021</div>
+      </div>
+      <div class="rv">
+        <div class="stars">★★★★★</div>
+        <blockquote>"We were able to get someone on our job almost immediately. Communication and expectations were clear and the quality of work was great."</blockquote>
+        <div class="who-r">Sarah H.</div>
+      </div>
+      <div class="rv">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Showed up exactly when they said they were (as most know this isn't always the case with contractors)… They left the place clean and tidy."</blockquote>
+        <div class="who-r">Josh N.</div>
+      </div>
+      <div class="rv">
+        <div class="stars">★★★★★</div>
+        <blockquote>"The work progressed quickly and was done a day earlier than expected. The walls look great, and their clean-up was excellent."</blockquote>
+        <div class="who-r">Ross T.</div>
+      </div>
+    </div>
+    <a class="rv-link" href="https://www.google.com/maps/place//data=!4m3!3m2!1s0x548f715cdf05b039:0x9d6158d8dd432c17!12e1" target="_blank" rel="noopener">Read all 275 reviews on Google →</a>
+  </section>
+
+  <section>
+    <div class="team">
+      <img src="assets/envision-team-mobile.jpg" alt="The Envision Painting team with their branded vans" width="1200" height="800" loading="lazy">
+      <div>
+        <span class="eyebrow">Our employees, never subcontractors</span>
+        <h2>The same team behind our 4.9★ reviews</h2>
+        <p>Every Painter For A Day is an Envision employee: trained, background-checked, insured and covered by WCB. Never a subcontractor, never a random handyman from an app.</p>
+        <p>We're a local, family-run company that's been painting homes across Greater Victoria for over a decade. Painter For A Day is the same crew and the same standards behind our 275 five-star reviews, just without the quote.</p>
+      </div>
     </div>
   </section>
 
   <section id="how">
     <div class="center">
-      <h2>How it works</h2>
-      <p class="sub">From checkout to a painter at your door, with no estimate appointment.</p>
+      <span class="eyebrow">How it works</span>
+      <h2>From checkout to a painter at your door</h2>
     </div>
     <div class="steps">
       <div class="step"><h3>Pick your days</h3><p>Choose 1, 2 or 3 days and pay securely online.</p></div>
-      <div class="step"><h3>Tell us the job</h3><p>Share a quick description, photos and your colours (if you know them).</p></div>
-      <div class="step"><h3>We schedule you</h3><p>Our coordinator calls within 24 hours to lock in your date and sort out paint.</p></div>
-      <div class="step"><h3>Your painter arrives</h3><p>A full 8-hour day of focused, professional work. You don't need to be home all day.</p></div>
+      <div class="step"><h3>Tell us the job</h3><p>A quick description, a few photos and your colours if you know them.</p></div>
+      <div class="step"><h3>We schedule you</h3><p>We call within 24 hours (Mon–Fri) to set your date and sort out paint.</p></div>
+      <div class="step"><h3>Your painter arrives</h3><p>A full 8-hour day of focused work. You don't need to be home all day.</p></div>
     </div>
   </section>
 
@@ -299,50 +416,50 @@ footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
           <li>One professional painter, 8 hours per day</li>
           <li>Basic prep: patching compound & caulking</li>
           <li>Drop sheets, tools & clean-up</li>
-          <li>Paint ordered ahead if you know your colours</li>
-          <li>Free colour browsing at Dulux, 1581 Hillside Ave</li>
+          <li>Paint picked up for you if you need it</li>
+          <li>Low-VOC paints, safe for kids and pets</li>
         </ul>
       </div>
       <div class="box no">
         <h3>Good to know</h3>
         <ul>
-          <li>Paint, primer & extra materials billed separately</li>
-          <li>Paint-store trips count toward the 8 hours</li>
-          <li>Large drywall repairs or heavy prep not included</li>
-          <li>We bill by the day, not by the finished task</li>
+          <li>Paint & primer are extra (at cost)</li>
+          <li>Paint-store runs count toward the 8 hours</li>
+          <li>Big drywall repairs or heavy prep not included</li>
+          <li>You're booking time, not a fixed scope</li>
           <li>Paid in full at booking. No refunds, but unused time becomes a credit</li>
-          <li>Need a warranty? Book a regular estimate instead</li>
         </ul>
       </div>
     </div>
   </section>
 
   <section>
-    <div class="center"><h2>Questions</h2></div>
+    <div class="center"><span class="eyebrow">Questions</span><h2>Good to know before you book</h2></div>
     <div class="faq">
-      <details><summary>How do I know how many days I need?</summary><p>Most single rooms or a batch of touch-ups fit in one day. After you book, send us photos and we'll tell you honestly if it needs more or less. If you're really unsure, call us first and we'll estimate it for you.</p></details>
-      <details><summary>What about paint?</summary><p>If you already have paint, great. If not, tell us your colours and we'll order it in advance so your painter shows up ready. Paint and primer are billed at cost on top of the day rate.</p></details>
-      <details><summary>Do I need to be home?</summary><p>Someone needs to let the painter in at the start of the day (or leave us a key). After that, you're free to go about your day.</p></details>
-      <details><summary>When will my painter come?</summary><p>We'll call to schedule you within 24 hours of booking (Mon–Fri, 8:30am–4:30pm) and pick a date that works for you.</p></details>
-      <details><summary>What if my job takes less than a full day?</summary><p>We'll suggest other small jobs to fill the rest of the day. If there's nothing else, the unused time becomes a credit toward a future Envision booking.</p></details>
+      <details><summary>How much gets done in a day?</summary><p>Most single rooms (walls) or a batch of touch-ups fit in one day. After you book, send us photos and we'll tell you honestly if it's more or less. Your painter also walks through the job with you at the start of the day so you know what's realistic.</p></details>
+      <details><summary>I'm a realtor or landlord. Do I need to be there?</summary><p>No. Someone just needs to let the painter in at the start of the day, or leave a key or lockbox code. Vacant units, listings and rentals between tenants are no problem.</p></details>
+      <details><summary>What about paint?</summary><p>If you have paint, great. If not, tell us your colours and we'll pick it up for you. Paint and primer are billed at cost on top of the day rate.</p></details>
+      <details><summary>When will my painter come?</summary><p>We call within 24 hours of booking (Mon–Fri, 8:30am–4:30pm) to pick a date that works for you.</p></details>
       <details><summary>What if I need a little more time?</summary><p>If your job just needs a little extra time to wrap up, we'll take care of it and only charge for the portion of a day used, at your discounted next-day rate. For example, 2 extra hours is a quarter of a day. We'll always check with you before going past your booked time.</p></details>
-      <details><summary>Is the work guaranteed to be finished in a day?</summary><p>You're booking a painter's full day, not a fixed scope. We'll get as much done as can be done well. If you need a guaranteed scope and our 10-year interior warranty, book a free estimate instead.</p></details>
-      <details><summary>What if I need to reschedule or cancel?</summary><p>Life happens! Bookings are non-refundable, but your money is never lost. Reschedule with at least 48 hours' notice, or if your job wraps up early, and any unused time becomes a credit toward a future Envision booking.</p></details>
+      <details><summary>What if my job takes less than a full day?</summary><p>We'll suggest other small jobs to fill the rest of the day. If there's nothing else, the unused time becomes a credit toward a future Envision booking.</p></details>
+      <details><summary>What if I need to reschedule or cancel?</summary><p>Life happens. Bookings are non-refundable, but your money is never lost. Reschedule with at least 48 hours' notice and any unused time becomes a credit toward a future Envision booking.</p></details>
+      <details><summary>Is the work guaranteed to be finished in a day?</summary><p>You're booking a painter's full day, not a fixed scope, so we'll get as much done as can be done well. For a guaranteed scope and our 10-year interior warranty, book a free estimate on envisionpainting.ca instead.</p></details>
     </div>
   </section>
 
   <section>
     <div class="final">
-      <h2>Cross those jobs off the list this month.</h2>
-      <p>Book online in two minutes. We'll call you within 24 hours.</p>
+      <h2>Stop putting it off. Book your painter today.</h2>
+      <p>Two minutes to book. We'll call within 24 hours.</p>
       <a class="btn btn-primary" href="#book">Book my painter →</a>
     </div>
   </section>
 </div>
 
 <footer>
+  <img src="assets/Envision-Logo.png" alt="Envision Painting Ltd" width="132" height="28">
   Envision Painting Ltd. · 2859 Gorge View Dr, Victoria, BC · <a href="tel:+12508132530">(250) 813-2530</a> · <a href="mailto:office@envisionpainting.ca">office@envisionpainting.ca</a><br>
-  <span id="offer-fine"></span>Prices in CAD, plus GST. Paint and materials extra.
+  Prices in CAD, plus GST. Paint and materials extra. <a href="https://envisionpainting.ca">envisionpainting.ca</a>
 </footer>
 
 <div class="sticky">
@@ -350,26 +467,24 @@ footer{padding:36px 0 120px;color:var(--muted);font-size:13px;text-align:center}
   <button class="btn btn-primary checkout">Book & pay →</button>
 </div>
 
-<div class="toast" id="toast"></div>
-
 <script>
 const fmt = n => "$" + n.toLocaleString("en-CA");
-const REG = {}; const PRICES = {};
+const $ = id => document.getElementById(id);
+const REG = {}, PRICES = {};
 for (let d = 1; d <= 3; d++) {
   REG[d] = DAY_RATES.slice(0, d).reduce((a, b) => a + b, 0);
   PRICES[d] = REG[d] - (OFFER.on ? (OFFER.off[d] || 0) : 0);
 }
 let selected = 1;
 
-// Fill prices into the page
-const $ = id => document.getElementById(id);
 $("pc-big").textContent = fmt(PRICES[1]);
 if (PRICES[1] < REG[1]) $("pc-was").textContent = "Regular " + fmt(REG[1]);
 DAY_RATES.forEach((r, i) => $("pc-d" + (i + 1)).textContent = fmt(r));
 if (OFFER.on) {
   $("pc-from").innerHTML = `<span class="offer-pill">${OFFER.label}</span>`;
+  $("offer-eyebrow").textContent = OFFER.label + (OFFER.ends ? ` · book by ${OFFER.ends}` : "");
   $("topbar").innerHTML = `<b>${OFFER.label}:</b> save up to ${fmt(Math.max(...Object.values(OFFER.off)))}` +
-    (OFFER.ends ? ` · Book by ${OFFER.ends}` : "") + " · No site visit needed";
+    (OFFER.ends ? ` · Book by ${OFFER.ends}` : "") + " · No estimate visit needed";
 }
 document.querySelectorAll(".opt").forEach(b => {
   const d = Number(b.dataset.days), save = REG[d] - PRICES[d];
@@ -378,32 +493,20 @@ document.querySelectorAll(".opt").forEach(b => {
   b.querySelector(".amt").textContent = fmt(PRICES[d]);
   b.querySelector(".per").textContent = `${d * 8} hours` + (d > 1 ? ` · ${fmt(Math.round(PRICES[d] / d))}/day avg` : "") + " · + GST";
   b.querySelector(".save").textContent = save > 0 ? `You save ${fmt(save)}` : (multiSave > 0 && d > 1 ? `Save ${fmt(multiSave)} vs. single days` : "");
-});
-const setTotal = () => { const t = fmt(PRICES[selected]) + " + GST"; $("total").textContent = t; $("total-m").textContent = t; };
-setTotal();
-
-document.querySelectorAll(".opt").forEach(b => {
   b.addEventListener("click", () => {
-    document.querySelectorAll(".opt").forEach(o => o.setAttribute("aria-checked","false"));
-    b.setAttribute("aria-checked","true");
-    selected = Number(b.dataset.days);
+    document.querySelectorAll(".opt").forEach(o => o.setAttribute("aria-checked", "false"));
+    b.setAttribute("aria-checked", "true");
+    selected = d;
     setTotal();
   });
 });
-
-function toast(msg){
-  const el = document.getElementById("toast");
-  el.textContent = msg; el.classList.add("show");
-  clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("show"), 3500);
-}
+function setTotal() { const t = fmt(PRICES[selected]) + " + GST"; $("total").textContent = t; $("total-m").textContent = t; }
+setTotal();
 
 document.querySelectorAll(".checkout").forEach(b => b.addEventListener("click", () => {
   const url = CHECKOUT_LINKS[selected];
-  if (!url) {
-    toast(`Test mode: this would open Stripe checkout for ${selected} day${selected>1?"s":""} (${fmt(PRICES[selected])} + GST).`);
-    return;
-  }
-  window.location.href = url + (url.includes('?') ? '&' : '?') + 'client_reference_id=' + SOURCE;
+  if (!url) { alert("Online booking isn't set up yet. Please call (250) 813-2530."); return; }
+  window.location.href = url + (url.includes("?") ? "&" : "?") + "client_reference_id=" + encodeURIComponent(SOURCE);
 }));
 </script>
 </body>
