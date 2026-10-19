@@ -18,10 +18,17 @@
 /* ============================================================
    SETTINGS: everything you might change lives here.
    ============================================================ */
-const CHECKOUT_LINKS = {   // LIVE Stripe links (Fall offer, campaign=pfad_facebook)
+const CHECKOUT_LINKS = {   // LIVE Stripe links (Fall offer, campaign=pfad_facebook), 1-10 days
   1: "https://book.stripe.com/bJe7sK9ytbsI1Bwd1H7IY00",
   2: "https://book.stripe.com/eVq14m7ql54k7ZU4vb7IY01",
-  3: "https://book.stripe.com/14A3cueSN7csfsm4vb7IY02"
+  3: "https://book.stripe.com/14A3cueSN7csfsm4vb7IY02",
+  4: "https://book.stripe.com/5kQ5kC261aoE7ZU4vb7IY06",
+  5: "https://book.stripe.com/00w4gyeSN40gbc65zf7IY07",
+  6: "https://book.stripe.com/fZu28q11X7cs5RM8Lr7IY08",
+  7: "https://book.stripe.com/3cI6oG11XcwM6VQf9P7IY09",
+  8: "https://book.stripe.com/aFaaEWcKF1S8eoi5zf7IY0a",
+  9: "https://book.stripe.com/3cIbJ0cKF68o6VQ4vb7IY0b",
+  10: "https://book.stripe.com/7sYcN46mh9kAeoiaTz7IY0c"
 };
 
 // Regular day rates (each additional day is cheaper).
@@ -197,6 +204,13 @@ footer img{height:28px;width:auto;margin:0 auto 12px}
 .sticky .btn-primary{padding:14px 20px;font-size:16px}
 
 
+/* adjustable 3+ days selector */
+.dsel{font:inherit;font-weight:700;font-size:17px;color:inherit;border:1.5px solid var(--line);border-radius:8px;padding:3px 28px 3px 8px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2327272a' stroke-width='2' fill='none'/%3E%3C/svg%3E") no-repeat right 8px center;-webkit-appearance:none;appearance:none;cursor:pointer}
+.dsel:focus{outline:2px solid var(--teal);outline-offset:1px}
+.pick .dsel{margin-bottom:2px}
+.moredays{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--teal-dark);font-weight:600;margin-top:6px;cursor:pointer}
+.moredays .dsel{font-size:13px;font-weight:600;padding:2px 24px 2px 6px;border-color:var(--teal);color:var(--teal-dark);background-position:right 6px center}
+
 /* day picker popup */
 .modal{position:fixed;inset:0;background:rgba(20,24,28,.55);display:none;align-items:flex-end;justify-content:center;z-index:100;padding:0}
 .modal.open{display:flex}
@@ -296,6 +310,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       <div class="row"><span>Day 1</span><b id="pc-d1"></b></div>
       <div class="row"><span>Day 2</span><b id="pc-d2"></b></div>
       <div class="row"><span>Day 3</span><b id="pc-d3"></b></div>
+      <div class="row"><span>Each day after</span><b id="pc-d4"></b></div>
       <hr>
       <p style="font-size:13px;color:var(--muted);margin:-6px 0 14px">Labour only. Paint & primer extra.</p>
       <a class="btn btn-primary" style="width:100%" href="#book">Choose my days</a>
@@ -319,7 +334,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       <div class="who"><div class="ic">👨‍👩‍👧</div><h3>Busy families</h3><p>Get your weekends back. The scuffed hallway, the kid's room, the trim you keep meaning to do. Done in a day.</p></div>
       <div class="who"><div class="ic">🔑</div><h3>Turnovers & rentals</h3><p>Between tenants, after move-out or before move-in. Freshen it up fast so the unit's ready on time.</p></div>
       <div class="who"><div class="ic">🏡</div><h3>Realtors & sellers</h3><p>Pre-listing touch-ups before photos and showings. Clean walls sell homes. Lockbox access works.</p></div>
-      <div class="who"><div class="ic">✅</div><h3>The to-do list</h3><p>Accent walls, doors, ceilings, patch-and-paint. The small jobs most painters won't quote.</p></div>
+      <div class="who"><div class="ic">✅</div><h3>The to-do list</h3><p>Accent walls, doors, ceilings, patch-and-paint, exterior touch-ups. The jobs most painters won't quote.</p></div>
     </div>
   </section>
 
@@ -380,15 +395,16 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
           <div class="fits">Great for: 2–3 rooms, a hallway + stairwell, doors & trim</div>
           <div class="save"></div>
         </button>
-        <button class="opt" role="radio" aria-checked="false" data-days="3">
+        <div class="opt" role="radio" tabindex="0" aria-checked="false" data-days="3">
           <span class="radio"></span>
-          <div class="days">3 Days</div>
+          <div class="days" id="optTitle">3 Days</div>
           <div class="was"></div>
           <div class="amt"></div>
           <div class="per"></div>
-          <div class="fits">Great for: a rental turnover or pre-listing refresh</div>
+          <div class="fits">Great for: rental turnovers, pre-listing refreshes, exteriors & bigger jobs</div>
+          <label class="moredays" onclick="event.stopPropagation()">Need more days? <select class="dsel" aria-label="Number of days" id="optDays"><option value="3">3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="6">6 days</option><option value="7">7 days</option><option value="8">8 days</option><option value="9">9 days</option><option value="10">10 days</option></select></label>
           <div class="save"></div>
-        </button>
+        </div>
       </div>
       <div class="summary">
         <div class="tot">Your total <b id="total"></b><span style="font-size:13px">Labour only · paint & primer extra</span></div>
@@ -396,7 +412,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       </div>
       <p class="fine">You're booking a painter's full 8-hour day, not a fixed job. Paint is extra (bring your own or we'll pick it up for you). Paid in full at booking. No refunds, but you can reschedule for free or cancel for a credit that never expires.</p>
       <p class="secure">By booking you agree to our <a href="/terms/" target="_blank">Painter For A Day terms</a>.<br>🔒 Secure checkout by Stripe · Apple Pay, Google Pay & all major cards</p>
-      <p class="more">Need more than 3 days? Call <a href="tel:+12508132530">(250) 813-2530</a> and we'll build a plan.</p>
+      <p class="more">Need more than 10 days? Call <a href="tel:+12508132530">(250) 813-2530</a> and we'll build a plan.</p>
     </div>
   </section>
 
@@ -485,6 +501,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
   <section>
     <div class="center"><span class="eyebrow">Questions</span><h2>Good to know before you book</h2></div>
     <div class="faq">
+      <details><summary>Do you do exterior work?</summary><p>Yes. Painter For A Day works for exterior jobs too: trim, doors, fences, decks and touch-ups. Exterior work that needs ladders over 10 ft is a 2-day minimum, so we can set up safely and get real work done. Exterior painting depends on dry weather, so we'll schedule around the forecast.</p></details>
       <details><summary>How much gets done in a day?</summary><p>Most single rooms (walls) or a batch of touch-ups fit in one day. After you book, send us photos and we'll tell you honestly if it's more or less. Your painter also walks through the job with you at the start of the day so you know what's realistic.</p></details>
       <details><summary>I'm a realtor or landlord. Do I need to be there?</summary><p>No. Someone just needs to let the painter in at the start of the day, or leave a key or lockbox code. Vacant units, listings and rentals between tenants are no problem.</p></details>
       <details><summary>Is paint included?</summary><p>No. The day rate covers your painter's time, tools and basic prep materials. Paint and primer are extra. If you already have paint, great. If not, tell us your colours and we'll pick it up for you and add it to your invoice, on top of the day rate. Paint-store runs count toward your 8 hours.</p></details>
@@ -514,7 +531,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
 <div class="modal" id="dayModal" role="dialog" aria-modal="true" aria-labelledby="dayModalTitle">
   <div class="sheet">
     <div class="sheet-head"><h3 id="dayModalTitle">How many days do you need?</h3><button class="x" type="button" aria-label="Close">×</button></div>
-    <p class="hint">Most single rooms or a batch of touch-ups fit in one day. Not sure? Pick one and we'll confirm when we call.</p>
+    <p class="hint">Most single rooms or a batch of touch-ups fit in one day. Exterior ladder work over 10 ft is a 2-day minimum. Not sure? Pick one and we'll confirm when we call.</p>
     <div id="dayModalOpts"></div>
     <p class="fine2">Plus GST · paint extra · secure checkout by Stripe</p>
   </div>
@@ -533,45 +550,72 @@ for (let d = 1; d <= 3; d++) {
   REG[d] = DAY_RATES.slice(0, d).reduce((a, b) => a + b, 0);
   PRICES[d] = REG[d] - (OFFER.on ? (OFFER.off[d] || 0) : 0);
 }
+// Every day after the 3rd stays at the 3rd-day price.
+const MAX_DAYS = 10;
+for (let d = 4; d <= MAX_DAYS; d++) {
+  REG[d] = REG[3] + (d - 3) * DAY_RATES[2];
+  PRICES[d] = PRICES[3] + (d - 3) * (PRICES[3] - PRICES[2]);
+}
 let selected = 1;
 
 $("pc-big").textContent = fmt(PRICES[1]);
 if (PRICES[1] < REG[1]) $("pc-was").textContent = "Regular " + fmt(REG[1]);
 DAY_RATES.forEach((r, i) => $("pc-d" + (i + 1)).textContent = fmt(r));
+$("pc-d4").textContent = fmt(DAY_RATES[2]);
 if (OFFER.on) {
   $("pc-from").innerHTML = `<span class="offer-pill">${OFFER.label}</span>`;
   $("offer-eyebrow").textContent = OFFER.label + (OFFER.ends ? ` · book by ${OFFER.ends}` : "");
   $("topbar").innerHTML = `<b>${OFFER.label}:</b> save up to ${fmt(Math.max(...Object.values(OFFER.off)))}` +
     (OFFER.ends ? ` · Book by ${OFFER.ends}` : "") + " · No estimate visit needed";
 }
-document.querySelectorAll(".opt").forEach(b => {
-  const d = Number(b.dataset.days), save = REG[d] - PRICES[d];
+function renderOpt(b, d) {
+  const save = REG[d] - PRICES[d];
   const multiSave = DAY_RATES[0] * d - PRICES[d];
   b.querySelector(".was").textContent = save > 0 ? fmt(REG[d]) : "";
   b.querySelector(".amt").textContent = fmt(PRICES[d]);
   b.querySelector(".per").textContent = `${d * 8} hours` + (d > 1 ? ` · ${fmt(Math.round(PRICES[d] / d))}/day avg` : "") + " · + GST · paint extra";
   b.querySelector(".save").textContent = save > 0 ? `You save ${fmt(save)}` : (multiSave > 0 && d > 1 ? `Save ${fmt(multiSave)} vs. single days` : "");
-  b.addEventListener("click", () => {
-    document.querySelectorAll(".opt").forEach(o => o.setAttribute("aria-checked", "false"));
-    b.setAttribute("aria-checked", "true");
-    selected = d;
-    setTotal();
-    if (window.posthog) posthog.capture("day_option_selected", { days: d, price: PRICES[d], offer: OFFER.on });
-  });
+}
+const optDays = $("optDays");
+const optValue = b => b.contains(optDays) ? Number(optDays.value) : Number(b.dataset.days);
+function chooseOpt(b) {
+  document.querySelectorAll(".opt").forEach(o => o.setAttribute("aria-checked", "false"));
+  b.setAttribute("aria-checked", "true");
+  selected = optValue(b);
+  setTotal();
+  if (window.posthog) posthog.capture("day_option_selected", { days: selected, price: PRICES[selected], offer: OFFER.on });
+}
+document.querySelectorAll(".opt").forEach(b => {
+  renderOpt(b, optValue(b));
+  b.addEventListener("click", e => { if (!e.target.closest("select, label.moredays")) chooseOpt(b); });
+  b.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && !e.target.closest("select")) { e.preventDefault(); chooseOpt(b); } });
 });
+optDays.addEventListener("change", () => { const b = optDays.closest(".opt"); const n = Number(optDays.value); $("optTitle").textContent = n + " Days"; renderOpt(b, n); chooseOpt(b); });
 function setTotal() { const t = fmt(PRICES[selected]) + " + GST"; $("total").textContent = t; $("total-m").textContent = t; }
 setTotal();
 
 // Every Book button opens the "how many days?" popup; choosing an option goes straight to checkout.
-const FITS = {1: "A room, an accent wall, touch-ups", 2: "2–3 rooms, hallway + stairwell, doors & trim", 3: "Rental turnover or pre-listing refresh"};
+const FITS = {1: "A room, an accent wall, touch-ups", 2: "2–3 rooms, hallway + stairwell, doors & trim", 3: "Turnovers, exteriors & bigger jobs"};
 const modal = $("dayModal");
 function openDayModal(e) {
   if (e) e.preventDefault();
-  $("dayModalOpts").innerHTML = [1, 2, 3].map(d => `
+  const n3 = selected >= 3 ? selected : 3;
+  const priceHtml = d => `${REG[d] > PRICES[d] ? `<s>${fmt(REG[d])}</s>` : ""}<strong>${fmt(PRICES[d])}</strong><em>+ GST</em>`;
+  $("dayModalOpts").innerHTML = [1, 2].map(d => `
     <button class="pick" type="button" data-days="${d}">
       <span><b>${d} ${d === 1 ? "Day" : "Days"}</b><small>${d * 8} hours · ${FITS[d]}</small></span>
-      <span class="pp">${REG[d] > PRICES[d] ? `<s>${fmt(REG[d])}</s>` : ""}<strong>${fmt(PRICES[d])}</strong><em>+ GST</em></span>
-    </button>`).join("");
+      <span class="pp">${priceHtml(d)}</span>
+    </button>`).join("") + `
+    <div class="pick" role="button" tabindex="0" data-days="3">
+      <span><b id="pickTitle">${n3} Days</b><small id="pickHours">${n3 * 8} hours · ${FITS[3]}</small><label class="moredays">Need more days? <select class="dsel" aria-label="Number of days" id="pickDays">${[...Array(MAX_DAYS - 2)].map((_, i) => `<option value="${i + 3}"${i + 3 === n3 ? " selected" : ""}>${i + 3} days</option>`).join("")}</select></label></span>
+      <span class="pp" id="pickPrice">${priceHtml(n3)}</span>
+    </div>`;
+  $("pickDays").addEventListener("change", e => {
+    const n = Number(e.target.value);
+    $("pickTitle").textContent = n + " Days";
+    $("pickHours").textContent = `${n * 8} hours · ${FITS[3]}`;
+    $("pickPrice").innerHTML = priceHtml(n);
+  });
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
   if (window.posthog && posthog.__loaded) posthog.capture("day_modal_opened");
@@ -581,10 +625,15 @@ function openDayModal(e) {
 function closeDayModal() { modal.classList.remove("open"); document.body.style.overflow = ""; }
 modal.addEventListener("click", e => {
   if (e.target === modal || e.target.closest(".x")) return closeDayModal();
+  if (e.target.closest("select, label.moredays")) return;
   const pick = e.target.closest(".pick");
-  if (pick) goToCheckout(Number(pick.dataset.days));
+  if (pick) goToCheckout(pick.dataset.days === "3" ? Number($("pickDays").value) : Number(pick.dataset.days));
 });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeDayModal(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") return closeDayModal();
+  const pick = e.target.closest && e.target.closest('div.pick');
+  if (pick && (e.key === "Enter" || e.key === " ") && !e.target.closest("select")) { e.preventDefault(); goToCheckout(Number($("pickDays").value)); }
+});
 document.querySelectorAll('.checkout, a.btn-primary[href="#book"]').forEach(b => b.addEventListener("click", openDayModal));
 
 function goToCheckout(d) {
