@@ -298,7 +298,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       </div>
       <ul class="ticks">
         <li>8 full hours of professional painting</li>
-        <li>Prep materials, tools and clean-up included (paint extra)</li>
+        <li>Tools and clean-up included. Paint & materials added on top</li>
         <li>Envision employees: insured, WCB-covered, background-checked</li>
       </ul>
     </div>
@@ -312,7 +312,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       <div class="row"><span>Day 3</span><b id="pc-d3"></b></div>
       <div class="row"><span>Each day after</span><b id="pc-d4"></b></div>
       <hr>
-      <p style="font-size:13px;color:var(--muted);margin:-6px 0 14px">Labour only. Paint & primer extra.</p>
+      <p style="font-size:13px;color:var(--muted);margin:-6px 0 14px">Labour only. Paint & applied materials are added on top.</p>
       <a class="btn btn-primary" style="width:100%" href="#book">Choose my days</a>
     </div>
   </div>
@@ -407,10 +407,10 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
         </div>
       </div>
       <div class="summary">
-        <div class="tot">Your total <b id="total"></b><span style="font-size:13px">Labour only · paint & primer extra</span></div>
+        <div class="tot">Your total <b id="total"></b><span style="font-size:13px">Labour only · paint & materials added on top</span></div>
         <button class="btn btn-primary checkout">Book & pay securely →</button>
       </div>
-      <p class="fine">You're booking a painter's full 8-hour day, not a fixed job. Paint is extra (bring your own or we'll pick it up for you). Paid in full at booking. No refunds, but you can reschedule for free or cancel for a credit that never expires.</p>
+      <p class="fine">You're booking a painter's full 8-hour day, not a fixed job. Paint and applied materials (primer, stain, sealer, etc.) are added on top of the day rate. Bring your own paint or we'll pick it up for you. Paid in full at booking. No refunds, but you can reschedule for free or cancel for a credit that never expires.</p>
       <p class="secure">By booking you agree to our <a href="/terms/" target="_blank">Painter For A Day terms</a>.<br>🔒 Secure checkout by Stripe · Apple Pay, Google Pay & all major cards</p>
       <p class="more">Need more than 10 days? Call <a href="tel:+12508132530">(250) 813-2530</a> and we'll build a plan.</p>
     </div>
@@ -488,7 +488,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       <div class="box no">
         <h3>Good to know</h3>
         <ul>
-          <li>Paint & primer are extra</li>
+          <li>Paint & applied materials (primer, stain, sealer, etc.) are added on top of the day rate</li>
           <li>Paint-store runs count toward the 8 hours</li>
           <li>Big drywall repairs or heavy prep not included</li>
           <li>You're booking time, not a fixed scope</li>
@@ -504,7 +504,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       <details><summary>Do you do exterior work?</summary><p>Yes. Painter For A Day works for exterior jobs too: trim, doors, fences, decks and touch-ups. Exterior work that needs ladders over 10 ft is a 2-day minimum, so we can set up safely and get real work done. Exterior painting depends on dry weather, so we'll schedule around the forecast.</p></details>
       <details><summary>How much gets done in a day?</summary><p>Most single rooms (walls) or a batch of touch-ups fit in one day. After you book, send us photos and we'll tell you honestly if it's more or less. Your painter also walks through the job with you at the start of the day so you know what's realistic.</p></details>
       <details><summary>I'm a realtor or landlord. Do I need to be there?</summary><p>No. Someone just needs to let the painter in at the start of the day, or leave a key or lockbox code. Vacant units, listings and rentals between tenants are no problem.</p></details>
-      <details><summary>Is paint included?</summary><p>No. The day rate covers your painter's time, tools and basic prep materials. Paint and primer are extra. If you already have paint, great. If not, tell us your colours and we'll pick it up for you and add it to your invoice, on top of the day rate. Paint-store runs count toward your 8 hours.</p></details>
+      <details><summary>Is paint included?</summary><p>No. The day rate covers your painter's time and tools. Paint and any applied materials (primer, stain, sealer, etc.) are added on top. If you already have paint, great. If not, tell us your colours and we'll pick it up for you and add it to your invoice, on top of the day rate. Paint-store runs count toward your 8 hours.</p></details>
       <details><summary>When will my painter come?</summary><p>We call within 1 business day of booking (Mon–Fri, 8:30am–4:30pm) to pick a date that works for you.</p></details>
       <details><summary>What if I need a little more time?</summary><p>If your job just needs a little extra time to wrap up, we'll take care of it and only charge for the portion of a day used, at your discounted next-day rate. For example, 2 extra hours is a quarter of a day. We'll always check with you before going past your booked time.</p></details>
       <details><summary>What if my job takes less than a full day?</summary><p>We'll suggest other small jobs to fill the rest of the day. If there's nothing else, the unused time becomes a credit toward a future Envision booking.</p></details>
@@ -533,12 +533,12 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
     <div class="sheet-head"><h3 id="dayModalTitle">How many days do you need?</h3><button class="x" type="button" aria-label="Close">×</button></div>
     <p class="hint">Most single rooms or a batch of touch-ups fit in one day. Exterior ladder work over 10 ft is a 2-day minimum. Not sure? Pick one and we'll confirm when we call.</p>
     <div id="dayModalOpts"></div>
-    <p class="fine2">Plus GST · paint extra · secure checkout by Stripe</p>
+    <p class="fine2">Plus GST · paint & materials added on top · secure checkout by Stripe</p>
   </div>
 </div>
 
 <div class="sticky">
-  <div class="t">Your total <b id="total-m"></b>paint extra</div>
+  <div class="t">Your total <b id="total-m"></b>+ paint & materials</div>
   <button class="btn btn-primary checkout">Book & pay →</button>
 </div>
 
@@ -573,7 +573,7 @@ function renderOpt(b, d) {
   const multiSave = DAY_RATES[0] * d - PRICES[d];
   b.querySelector(".was").textContent = save > 0 ? fmt(REG[d]) : "";
   b.querySelector(".amt").textContent = fmt(PRICES[d]);
-  b.querySelector(".per").textContent = `${d * 8} hours` + (d > 1 ? ` · ${fmt(Math.round(PRICES[d] / d))}/day avg` : "") + " · + GST · paint extra";
+  b.querySelector(".per").textContent = `${d * 8} hours` + (d > 1 ? ` · ${fmt(Math.round(PRICES[d] / d))}/day avg` : "") + " · + GST · + paint & materials";
   b.querySelector(".save").textContent = save > 0 ? `You save ${fmt(save)}` : (multiSave > 0 && d > 1 ? `Save ${fmt(multiSave)} vs. single days` : "");
 }
 const optDays = $("optDays");
