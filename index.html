@@ -39,11 +39,32 @@ const OFFER = {
   on: true,
   label: "Fall booking special",
   off: {1: 120, 2: 165, 3: 240},     // offer: $675 / $1,325 / $1,845
-  ends: "October 31"                 // "" to hide
+  ends: "October 31",                // shown on the page; "" to hide
+  endsAt: "2026-10-31T23:59:59-07:00" // offer switches off automatically at this moment (Pacific time)
 };
+
+// After the offer ends, the page shows regular prices and books through the regular-price links.
+const REGULAR_LINKS = {   // LIVE Stripe links (regular prices), 1-10 days
+  1: "https://book.stripe.com/bJe6oGdOJdAQa82d1H7IY03",
+  2: "https://book.stripe.com/fZu4gy3a568o1Bw6Dj7IY04",
+  3: "https://book.stripe.com/8x214m9yt9kAeoie5L7IY05",
+  4: "https://book.stripe.com/bJeaEW9yt68o4NIaTz7IY0d",
+  5: "https://book.stripe.com/00w5kCaCx54kbc60eV7IY0e",
+  6: "https://book.stripe.com/4gM28qdOJ7csbc64vb7IY0f",
+  7: "https://book.stripe.com/bJefZgdOJfIYgwq3r77IY0g",
+  8: "https://book.stripe.com/aFa8wOfWRdAQ0xsaTz7IY0h",
+  9: "https://book.stripe.com/dRmeVc4e92WcfsmgdT7IY0i",
+  10: "https://book.stripe.com/14A3cu6mhcwM7ZU0eV7IY0j"
+};
+const OFFER_END = OFFER.endsAt ? new Date(OFFER.endsAt).getTime() : Infinity;
+if (OFFER.on && Date.now() >= OFFER_END) {
+  OFFER.on = false;
+  Object.assign(CHECKOUT_LINKS, REGULAR_LINKS);
+}
 
 // Tags each Stripe booking with where it came from (shows on the payment in Stripe).
 const SOURCE = new URLSearchParams(location.search).get("utm_source") || "facebook";
+try { localStorage.setItem("pfad_src", JSON.stringify({ src: SOURCE, at: Date.now() })); } catch (e) {}
 </script>
 <style>
 :root{
@@ -564,9 +585,24 @@ DAY_RATES.forEach((r, i) => $("pc-d" + (i + 1)).textContent = fmt(r));
 $("pc-d4").textContent = fmt(DAY_RATES[2]);
 if (OFFER.on) {
   $("pc-from").innerHTML = `<span class="offer-pill">${OFFER.label}</span>`;
-  $("offer-eyebrow").textContent = OFFER.label + (OFFER.ends ? ` · book by ${OFFER.ends}` : "");
-  $("topbar").innerHTML = `<b>${OFFER.label}:</b> save ${fmt(REG[1] - PRICES[1])} on 1 day, up to ${fmt(Math.max(...Object.keys(PRICES).map(d => REG[d] - PRICES[d])))} on bigger jobs` +
-    (OFFER.ends ? ` · Book by ${OFFER.ends}` : "") + " · No estimate visit needed";
+  const saveLine = `save ${fmt(REG[1] - PRICES[1])} on 1 day, up to ${fmt(Math.max(...Object.keys(PRICES).map(d => REG[d] - PRICES[d])))} on bigger jobs`;
+  // Real countdown to the offer end: days until the last 48 hours, then hours and minutes.
+  function timeLeft() {
+    const ms = OFFER_END - Date.now();
+    if (ms <= 0) return "";
+    const h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000);
+    if (h >= 48) { const d = Math.floor(ms / 86400000); return `ends in ${d} days`; }
+    return h >= 1 ? `ends in ${h}h ${m}m` : `ends in ${m}m`;
+  }
+  function renderCountdown() {
+    const left = Number.isFinite(OFFER_END) ? timeLeft() : "";
+    if (Number.isFinite(OFFER_END) && !left) { location.reload(); return; }   // offer just ended
+    const when = left ? `<b>${left}</b>` + (OFFER.ends ? ` (${OFFER.ends})` : "") : (OFFER.ends ? `book by ${OFFER.ends}` : "");
+    $("topbar").innerHTML = `<b>${OFFER.label}:</b> ${saveLine}` + (when ? ` · ${when}` : "");
+    $("offer-eyebrow").innerHTML = OFFER.label + (when ? ` · ${when}` : "");
+  }
+  renderCountdown();
+  setInterval(renderCountdown, 30000);
 }
 function renderOpt(b, d) {
   const save = REG[d] - PRICES[d];
@@ -637,6 +673,7 @@ document.addEventListener("keydown", e => {
 document.querySelectorAll('.checkout, a.btn-primary[href="#book"]').forEach(b => b.addEventListener("click", openDayModal));
 
 function goToCheckout(d) {
+  if (OFFER.on && Date.now() >= OFFER_END) { location.reload(); return; }
   selected = d;
   const url = CHECKOUT_LINKS[d];
   if (!url) { alert("Online booking isn't set up yet. Please call (250) 813-2530."); return; }

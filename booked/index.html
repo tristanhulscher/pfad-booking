@@ -11,7 +11,9 @@
 <script>
 // Booking details passed by the Stripe redirect: ?src=facebook&days=1&value=675&session_id=cs_...
 const P = new URLSearchParams(location.search);
-const SRC = P.get("src") || "direct";
+// Source: the Stripe link's tag, or (if the visitor came from the Facebook page within 7 days) "facebook".
+let SRC = P.get("src") || "direct";
+try { const v = JSON.parse(localStorage.getItem("pfad_src") || "null"); if (v && v.src === "facebook" && Date.now() - v.at < 7 * 86400000) SRC = "facebook"; } catch (e) {}
 const DAYS = Number(P.get("days")) || null;
 const VALUE = Number(P.get("value")) || null;
 const SESSION = P.get("session_id") || "";

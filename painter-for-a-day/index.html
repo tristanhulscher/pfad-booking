@@ -44,6 +44,7 @@ const OFFER = {
 
 // Tags each Stripe booking with where it came from (shows on the payment in Stripe).
 const SOURCE = new URLSearchParams(location.search).get("utm_source") || "direct";
+try { localStorage.setItem("pfad_src", JSON.stringify({ src: SOURCE, at: Date.now() })); } catch (e) {}
 </script>
 <style>
 :root{
