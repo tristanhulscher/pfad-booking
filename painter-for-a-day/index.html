@@ -216,6 +216,15 @@ footer img{height:28px;width:auto;margin:0 auto 12px}
   .hero-ctas .btn{width:100%}
 }
 </style>
+<script>
+/* PostHog analytics (project: Envision Painting, us.posthog.com) */
+const POSTHOG_KEY = "phc_nKSqg6mJbnNHdbQ8C5fVhaYSGXjawEbQa2axcXqdbwsV";
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag onFeatureFlags identify setPersonProperties startSessionRecording stopSessionRecording".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+if (POSTHOG_KEY.startsWith("phc_")) {
+  posthog.init(POSTHOG_KEY, { api_host: "https://us.i.posthog.com", person_profiles: "identified_only" });
+  posthog.register({ page_variant: "client_regular" });
+}
+</script>
 </head>
 <body>
 
@@ -501,6 +510,7 @@ document.querySelectorAll(".opt").forEach(b => {
     b.setAttribute("aria-checked", "true");
     selected = d;
     setTotal();
+    if (window.posthog) posthog.capture("day_option_selected", { days: d, price: PRICES[d], offer: OFFER.on });
   });
 });
 function setTotal() { const t = fmt(PRICES[selected]) + " + GST"; $("total").textContent = t; $("total-m").textContent = t; }
@@ -509,7 +519,13 @@ setTotal();
 document.querySelectorAll(".checkout").forEach(b => b.addEventListener("click", () => {
   const url = CHECKOUT_LINKS[selected];
   if (!url) { alert("Online booking isn't set up yet. Please call (250) 813-2530."); return; }
-  window.location.href = url + (url.includes("?") ? "&" : "?") + "client_reference_id=" + encodeURIComponent(SOURCE);
+  const dest = url + (url.includes("?") ? "&" : "?") + "client_reference_id=" + encodeURIComponent(SOURCE);
+  if (window.posthog && posthog.__loaded) {
+    posthog.capture("book_clicked", { days: selected, price: PRICES[selected], offer: OFFER.on, source: SOURCE }, { transport: "sendBeacon" });
+    setTimeout(() => { window.location.href = dest; }, 150);
+  } else {
+    window.location.href = dest;
+  }
 }));
 </script>
 </body>
