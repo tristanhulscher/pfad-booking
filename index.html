@@ -272,6 +272,57 @@ footer img{height:28px;width:auto;margin:0 auto 12px}
 .cb-done p{color:var(--ink-2)}
 .cb-err{display:none;color:#b42318;font-size:14px;text-align:center}
 .sheet .alt{display:block;text-align:center;margin-top:12px;font-size:14px;font-weight:600;color:var(--teal-dark);text-decoration:none}
+
+/* estimator */
+.est{background:#fff;border:2px solid var(--teal);border-radius:24px;padding:32px;max-width:860px;margin:0 auto;box-shadow:0 10px 40px rgba(0,0,0,.06)}
+.est-prog{display:flex;gap:6px;margin-bottom:22px}
+.est-prog span{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.est-prog span.on{background:var(--teal)}
+.est-step{display:none}
+.est-step.on{display:block}
+.est h3{font-size:22px;margin-bottom:6px}
+.est .q{color:var(--ink-2);margin-bottom:18px;font-size:15px}
+.est-areas{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.est-area{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-weight:600;font-size:15px}
+.est-area.has{border-color:var(--teal);background:rgba(0,160,184,.06)}
+.est-area small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.cnt{display:flex;align-items:center;gap:8px;flex:none}
+.cnt button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:#fff;font-size:18px;font-weight:700;color:var(--ink);cursor:pointer;line-height:1}
+.cnt button:hover{border-color:var(--teal)}
+.cnt b{min-width:16px;text-align:center}
+.est-other{margin-top:14px;display:grid;gap:5px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.est textarea,.est input[type=text],.est input[type=tel],.est input[type=email]{font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;width:100%;color:var(--ink);background:#fff}
+.est textarea{min-height:70px;resize:vertical}
+.est textarea:focus,.est input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,160,184,.15)}
+.est-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.est-row:last-child{border-bottom:0}
+.est-row .lbl{font-weight:600}
+.est-row .lbl small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;flex-wrap:wrap}
+.seg button{border:0;background:#fff;padding:9px 14px;font:inherit;font-size:14px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.seg button+button{border-left:1.5px solid var(--line)}
+.seg button[aria-pressed=true]{background:var(--teal);color:#fff}
+.est-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px}
+.est-nav .back{background:none;border:0;font:inherit;font-weight:600;color:var(--muted);cursor:pointer;padding:8px 0}
+.est-nav .btn{min-width:220px}
+.est-err{display:none;color:#b42318;font-size:14px;margin-top:10px}
+.est-form{display:grid;gap:12px}
+.est-form label{font-size:13px;font-weight:600;color:var(--ink-2);display:grid;gap:5px}
+.est-form .two-c{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.est-fine{font-size:12px;color:var(--muted);margin-top:8px}
+.est-res{text-align:center}
+.est-res .days{font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:6px 0 4px}
+.est-res .price{font-size:22px;font-weight:700;margin-bottom:4px}
+.est-res .price s{color:var(--muted);font-weight:500;margin-right:8px;font-size:18px}
+.est-res .note{color:var(--ink-2);font-size:15px;max-width:560px;margin:10px auto 18px}
+.est-res .btn{min-width:280px}
+.est-res .sumry{background:var(--bg-2,#f4f6f7);border-radius:12px;padding:14px 16px;text-align:left;font-size:14px;color:var(--ink-2);margin:18px auto 0;max-width:560px}
+.est-res .sumry b{color:var(--ink)}
+.est-res .links{margin-top:14px;font-size:14px}
+.est-res .links a{color:var(--teal-dark);font-weight:600}
+.est-big{background:#fff7e6;border:1px solid #f5d48a;border-radius:12px;padding:12px 14px;font-size:14px;color:#6b4e00;max-width:560px;margin:0 auto 14px}
+@media (max-width:860px){.est{padding:22px 16px;border-radius:18px}.est-areas{grid-template-columns:1fr}.est-form .two-c{grid-template-columns:1fr}.est-nav .btn{min-width:0;flex:1}.est-res .btn{min-width:0;width:100%}.est-res .days{font-size:38px}}
+
 @media (max-width:860px){.callback{grid-template-columns:1fr;padding:24px 18px;border-radius:18px}.cb-row{grid-template-columns:1fr}}
 
 @media (max-width:860px){
@@ -337,8 +388,8 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       <h1>Skip the quote. <em>Book a painter for the day.</em></h1>
       <p class="lead">A pro Envision painter at your place for a full 8 hours. No estimate visit, no waiting on a quote, no chasing contractors. Book online in 2 minutes and we'll call within 1 business day to lock in your date.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#book">Book my painter →</a>
-        <a class="btn btn-ghost" href="#callback">Get a free call-back</a>
+        <a class="btn btn-primary" href="#estimate">See how many days I need →</a>
+        <a class="btn btn-ghost" href="#book">Book my painter</a>
       </div>
       <ul class="ticks">
         <li>8 full hours of professional painting</li>
@@ -367,6 +418,62 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
     <div><strong>$3M insured</strong>Plus WCB coverage</div>
     <div><strong>10+ years</strong>Local & family-run</div>
   </div>
+
+  <section id="estimate">
+    <div class="center">
+      <span class="eyebrow">Free instant estimate · 60 seconds</span>
+      <h2>How many days do you need?</h2>
+      <p class="sub">Tell us what you want painted and we'll show you how many days most jobs like yours take, and your price.</p>
+    </div>
+    <div class="est" id="est">
+      <div class="est-prog" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></div>
+
+      <div class="est-step on" data-step="1">
+        <h3>What do you want painted?</h3>
+        <p class="q">Add each room or area. Use + for more than one.</p>
+        <div class="est-areas" id="estAreas"></div>
+        <label class="est-other">Anything else? (optional)<textarea id="estOther" placeholder="e.g. touch up scuffs in the entry, paint the garage door"></textarea></label>
+        <p class="est-err" id="estErr1">Add at least one room or item, or describe it in the box.</p>
+        <div class="est-nav"><span></span><button class="btn btn-primary" type="button" data-next>Next →</button></div>
+      </div>
+
+      <div class="est-step" data-step="2">
+        <h3>Tell us a bit more</h3>
+        <p class="q">Rough is fine. Your painter confirms everything on the day.</p>
+        <div id="estSizes"></div>
+        <div class="est-row"><div class="lbl">Ceilings too?<small>In the rooms above</small></div><div class="seg" data-key="ceilings"><button type="button" data-v="no" aria-pressed="true">No</button><button type="button" data-v="yes">Yes</button></div></div>
+        <div class="est-row"><div class="lbl">Trim too?<small>Baseboards, door & window casings</small></div><div class="seg" data-key="trim"><button type="button" data-v="no" aria-pressed="true">No</button><button type="button" data-v="yes">Yes</button></div></div>
+        <div class="est-nav"><button class="back" type="button" data-back>← Back</button><button class="btn btn-primary" type="button" data-next>Next →</button></div>
+      </div>
+
+      <div class="est-step" data-step="3">
+        <h3>A few quick questions</h3>
+        <p class="q">These change how long the job takes.</p>
+        <div class="est-row"><div class="lbl">Condition of the walls</div><div class="seg" data-key="condition"><button type="button" data-v="good" aria-pressed="true">Good</button><button type="button" data-v="some">Some patching</button><button type="button" data-v="lots">Lots of repairs</button></div></div>
+        <div class="est-row"><div class="lbl">Big colour change?<small>e.g. dark to light</small></div><div class="seg" data-key="colour"><button type="button" data-v="no" aria-pressed="true">No</button><button type="button" data-v="yes">Yes</button></div></div>
+        <div class="est-row"><div class="lbl">Will rooms be furnished?<small>We cover and move light furniture</small></div><div class="seg" data-key="furnished"><button type="button" data-v="yes" aria-pressed="true">Yes</button><button type="button" data-v="no">Empty</button></div></div>
+        <div class="est-row"><div class="lbl">Need us to pick up paint?</div><div class="seg" data-key="paint"><button type="button" data-v="no" aria-pressed="true">I have paint</button><button type="button" data-v="yes">Yes please</button><button type="button" data-v="unsure">Not sure</button></div></div>
+        <div class="est-nav"><button class="back" type="button" data-back>← Back</button><button class="btn btn-primary" type="button" data-next>Next →</button></div>
+      </div>
+
+      <div class="est-step" data-step="4">
+        <h3>Where should we send your estimate?</h3>
+        <p class="q">Your estimate shows on the next screen, and we'll email you a copy.</p>
+        <form class="est-form" id="estForm" novalidate>
+          <label>Your name<input type="text" name="name" autocomplete="name" required></label>
+          <div class="two-c">
+            <label>Phone<input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
+            <label>Email<input type="email" name="email" autocomplete="email" required></label>
+          </div>
+          <p class="est-err" id="estErr4"></p>
+          <div class="est-nav"><button class="back" type="button" data-back>← Back</button><button class="btn btn-primary" type="submit" id="estBtn">Show my estimate →</button></div>
+          <p class="est-fine">We'll only use your details to send your estimate and contact you about your project. No spam.</p>
+        </form>
+      </div>
+
+      <div class="est-step est-res" data-step="5" id="estRes"></div>
+    </div>
+  </section>
 
   <section>
     <div class="center">
@@ -613,7 +720,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
     <p class="hint">Most single rooms or a batch of touch-ups fit in one day. Exterior ladder work over 10 ft is a 2-day minimum. Not sure? Pick one and we'll confirm when we call.</p>
     <div id="dayModalOpts"></div>
     <p class="fine2">Plus GST · paint & materials added on top · secure checkout by Stripe</p>
-    <a class="alt" href="#callback">Have questions first? Get a free call-back →</a>
+    <a class="alt" href="#estimate">Not sure how many days? Get a free instant estimate →</a>
   </div>
 </div>
 
@@ -746,7 +853,7 @@ function goToCheckout(d) {
 const PAGE_VARIANT = "facebook_offer";
 // Free call-back form: posts the lead to a Zapier webhook (Zapier then creates the Jobber request / HighLevel contact and emails the office).
 const CALLBACK_WEBHOOK = "https://hooks.zapier.com/hooks/catch/1324050/41j2kor/";   // Zapier "Catch Hook" URL
-document.querySelectorAll('a[href="#callback"]').forEach(a => a.addEventListener("click", () => { if (typeof closeDayModal === "function") closeDayModal(); }));
+document.querySelectorAll('a[href="#callback"], a[href="#estimate"]').forEach(a => a.addEventListener("click", () => { if (typeof closeDayModal === "function") closeDayModal(); }));
 $("cbForm").addEventListener("submit", async e => {
   e.preventDefault();
   const f = e.target, err = $("cbErr"), btn = $("cbBtn");
@@ -776,6 +883,164 @@ $("cbForm").addEventListener("submit", async e => {
     err.style.display = "block";
   }
 });
+
+// Instant estimator: rooms + answers -> hours -> days -> price. Contact details are collected (and sent to the
+// call-back Zap) before the result is shown. All the job-time numbers are in ESTIMATOR; edit them there.
+const ESTIMATOR = {
+  hoursPerDay: 8,
+  buffer: 1.1,                       // 10% padding so we round toward more time, not less
+  areas: [                           // walls only, 2 coats, incl. setup & clean-up: [small, medium, large] hours
+    { key: "bedroom",  label: "Bedroom / office",   hours: [4, 5, 6.5] },
+    { key: "living",   label: "Living / family room", hours: [5, 7, 10] },
+    { key: "dining",   label: "Dining room",        hours: [4, 5, 6.5] },
+    { key: "kitchen",  label: "Kitchen walls",      hint: "Not cabinets", hours: [4, 5, 7] },
+    { key: "bathroom", label: "Bathroom",           hours: [2.5, 3.5, 5] },
+    { key: "hallway",  label: "Hallway / entry",    hours: [3, 4, 5.5] },
+    { key: "stairwell",label: "Stairwell",          hint: "High walls", hours: [7, 8, 10] },
+    { key: "laundry",  label: "Laundry / mudroom",  hours: [2.5, 3, 4] }
+  ],
+  items: [                           // counted items: hours each
+    { key: "doors",     label: "Interior doors",    hint: "Both sides", hours: 1 },
+    { key: "closets",   label: "Closet doors",      hint: "Per pair", hours: 1.5 },
+    { key: "frontdoor", label: "Front door",        hint: "Outside face", hours: 2 }
+  ],
+  ceiling: [1.5, 2.5, 3.5],          // add-on per area, by size
+  trim: [1.5, 2.5, 3.5],             // add-on per area, by size
+  condition: { good: 1, some: 1.15, lots: 1.35 },
+  colourChange: 1.2,                 // multiplies wall hours
+  furnishedPerArea: 0.5,
+  paintPickup: 1,                    // store run counts toward the day
+  bigJobDays: 6                      // above this, also suggest a free estimate
+};
+const SIZES = ["Small", "Medium", "Large"];
+const est = { counts: {}, sizes: {}, opts: { ceilings: "no", trim: "no", condition: "good", colour: "no", furnished: "yes", paint: "no" } };
+let estStep = 1, estStarted = false;
+
+$("estAreas").innerHTML = [...ESTIMATOR.areas, ...ESTIMATOR.items].map(a => `
+  <div class="est-area" data-k="${a.key}"><span>${a.label}${a.hint ? `<small>${a.hint}</small>` : ""}</span>
+    <span class="cnt"><button type="button" data-d="-1" aria-label="Fewer ${a.label}">−</button><b>0</b><button type="button" data-d="1" aria-label="More ${a.label}">+</button></span></div>`).join("");
+$("estAreas").addEventListener("click", e => {
+  const b = e.target.closest("button[data-d]"); if (!b) return;
+  const box = b.closest(".est-area"), k = box.dataset.k;
+  est.counts[k] = Math.max(0, Math.min(9, (est.counts[k] || 0) + Number(b.dataset.d)));
+  box.querySelector("b").textContent = est.counts[k];
+  box.classList.toggle("has", est.counts[k] > 0);
+  if (!estStarted) { estStarted = true; if (window.posthog && posthog.__loaded) posthog.capture("estimator_started"); }
+});
+function segClick(e) {
+  const b = e.target.closest(".seg button"); if (!b) return;
+  const seg = b.parentElement;
+  seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  if (seg.dataset.size) est.sizes[seg.dataset.size] = Number(b.dataset.v); else est.opts[seg.dataset.key] = b.dataset.v;
+}
+$("est").addEventListener("click", segClick);
+
+function renderSizes() {
+  const rows = ESTIMATOR.areas.filter(a => est.counts[a.key] > 0).map(a => {
+    if (est.sizes[a.key] === undefined) est.sizes[a.key] = 1;
+    const n = est.counts[a.key];
+    return `<div class="est-row"><div class="lbl">${n > 1 ? n + " × " : ""}${a.label}<small>Size${n > 1 ? " (typical)" : ""}</small></div>
+      <div class="seg" data-size="${a.key}">${SIZES.map((s, i) => `<button type="button" data-v="${i}" aria-pressed="${est.sizes[a.key] === i}">${s}</button>`).join("")}</div></div>`;
+  });
+  $("estSizes").innerHTML = rows.join("");
+  // No rooms (only doors / other) -> skip ceilings & trim questions too
+  document.querySelectorAll('#est [data-step="2"] .seg[data-key]').forEach(s => s.closest(".est-row").style.display = rows.length ? "" : "none");
+  return rows.length > 0;
+}
+
+function estimate() {
+  const E = ESTIMATOR, o = est.opts, cond = E.condition[o.condition] || 1;
+  let hours = 0, rooms = 0;
+  E.areas.forEach(a => {
+    const n = est.counts[a.key] || 0; if (!n) return;
+    const s = est.sizes[a.key] ?? 1;
+    let h = a.hours[s] * (o.colour === "yes" ? E.colourChange : 1);
+    if (o.ceilings === "yes") h += E.ceiling[s];
+    if (o.trim === "yes") h += E.trim[s];
+    h = h * cond + (o.furnished === "yes" ? E.furnishedPerArea : 0);
+    hours += h * n; rooms += n;
+  });
+  E.items.forEach(i => { hours += (est.counts[i.key] || 0) * i.hours; });
+  if (o.paint !== "no") hours += E.paintPickup;
+  const days = Math.max(1, Math.ceil(hours * E.buffer / E.hoursPerDay));
+  return { hours: Math.round(hours * 10) / 10, days, rooms };
+}
+function estSummary() {
+  const parts = [];
+  ESTIMATOR.areas.forEach(a => { const n = est.counts[a.key]; if (n) parts.push(`${n}× ${a.label} (${SIZES[est.sizes[a.key] ?? 1].toLowerCase()})`); });
+  ESTIMATOR.items.forEach(i => { const n = est.counts[i.key]; if (n) parts.push(`${n}× ${i.label}`); });
+  const o = est.opts, extra = [];
+  if (parts.length && ESTIMATOR.areas.some(a => est.counts[a.key])) { if (o.ceilings === "yes") extra.push("ceilings"); if (o.trim === "yes") extra.push("trim"); }
+  return { items: parts.join(", ") || "(described below)", extras: extra.join(" + "),
+    details: `walls: ${o.condition === "good" ? "good condition" : o.condition === "some" ? "some patching" : "lots of repairs"} · colour change: ${o.colour} · furnished: ${o.furnished} · paint pickup: ${o.paint}` };
+}
+
+function goStep(n) {
+  estStep = n;
+  document.querySelectorAll("#est .est-step").forEach(s => s.classList.toggle("on", Number(s.dataset.step) === n));
+  document.querySelectorAll("#est .est-prog span").forEach((s, i) => s.classList.toggle("on", i < n));
+  const top = $("est").getBoundingClientRect().top;
+  if (top < 0 || top > innerHeight * 0.6) $("estimate").scrollIntoView({ behavior: "smooth" });
+  if (window.posthog && posthog.__loaded) posthog.capture("estimator_step", { step: n });
+}
+$("est").addEventListener("click", e => {
+  if (e.target.closest("[data-back]")) return goStep(estStep === 3 && !ESTIMATOR.areas.some(a => est.counts[a.key]) ? 1 : estStep - 1);
+  if (!e.target.closest("[data-next]")) return;
+  if (estStep === 1) {
+    const any = Object.values(est.counts).some(n => n > 0) || $("estOther").value.trim();
+    $("estErr1").style.display = any ? "none" : "block";
+    if (!any) return;
+    return goStep(renderSizes() ? 2 : 3);
+  }
+  goStep(estStep + 1);
+});
+
+$("estForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = e.target, err = $("estErr4"), btn = $("estBtn");
+  const data = Object.fromEntries(new FormData(f).entries());
+  ["name", "phone", "email"].forEach(k => data[k] = (data[k] || "").trim());
+  if (!data.name || data.phone.replace(/\D/g, "").length < 10 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) {
+    err.textContent = "Please add your name, a phone number and an email we can reach you at.";
+    err.style.display = "block"; return;
+  }
+  err.style.display = "none";
+  const r = estimate(), s = estSummary(), other = $("estOther").value.trim();
+  const priceTxt = r.days <= MAX_DAYS ? fmt(PRICES[r.days]) + " + GST" : "10+ days (call)";
+  const qs = new URLSearchParams(location.search);
+  Object.assign(data, {
+    job: `ESTIMATOR: about ${r.days} day${r.days > 1 ? "s" : ""} (${priceTxt}), ${r.hours} est. hours.\n` +
+         `Areas: ${s.items}${s.extras ? "; rooms include " + s.extras : ""}.\n${s.details}.` + (other ? `\nAlso: ${other}` : ""),
+    form: "estimator", estimate_days: r.days, estimate_hours: r.hours, estimate_price: r.days <= MAX_DAYS ? PRICES[r.days] : "",
+    source: SOURCE, page: PAGE_VARIANT, offer: OFFER.on ? OFFER.label : "regular",
+    utm_campaign: qs.get("utm_campaign") || "", utm_content: qs.get("utm_content") || "",
+    page_url: location.href, submitted_at: new Date().toISOString()
+  });
+  btn.disabled = true; btn.textContent = "Working it out…";
+  try {
+    await fetch(CALLBACK_WEBHOOK, { method: "POST", body: new URLSearchParams(data) });
+  } catch (x) { /* still show the estimate; the call-back form below is the fallback */ }
+  if (window.fbq) fbq("track", "Lead", { content_name: "Painter For A Day estimate", value: r.days <= MAX_DAYS ? PRICES[r.days] : 0, currency: "CAD" });
+  if (window.posthog && posthog.__loaded) posthog.capture("estimate_submitted", { days: r.days, hours: r.hours, source: SOURCE });
+  showResult(r, s, other);
+});
+
+function showResult(r, s, other) {
+  const d = r.days, big = d > ESTIMATOR.bigJobDays, tooBig = d > MAX_DAYS;
+  const dLbl = d + (d === 1 ? " day" : " days");
+  $("estRes").innerHTML = `
+    <span class="eyebrow">Your estimate</span>
+    <div class="days">About ${tooBig ? "10+ days" : dLbl}</div>
+    ${tooBig ? "" : `<div class="price">${REG[d] > PRICES[d] ? `<s>${fmt(REG[d])}</s>` : ""}${fmt(PRICES[d])} <span style="font-weight:500;font-size:16px;color:var(--muted)">+ GST · paint extra</span></div>`}
+    <p class="note">Most jobs like yours take about ${tooBig ? "10 or more days" : dLbl} with one painter. Your painter walks the job with you at the start of the day and confirms what's realistic.</p>
+    ${big ? `<div class="est-big">For a project this size, a <a href="https://envisionpainting.ca" target="_blank" rel="noopener">free estimate</a> with a fixed price and our 10-year warranty may be the better deal. We'll call you either way.</div>` : ""}
+    ${tooBig ? `<a class="btn btn-primary" href="tel:+12508132530">Call (250) 813-2530</a>` : `<button class="btn btn-primary" type="button" id="estBook">Book my ${dLbl} →</button>`}
+    <div class="links">${tooBig ? "We'll call you within 1 business day to plan it out." : `Have a question first? We'll call you within 1 business day, no need to do anything.`}</div>
+    <div class="sumry"><b>Based on:</b> ${s.items}${s.extras ? "; rooms include " + s.extras : ""}. ${s.details[0].toUpperCase() + s.details.slice(1)}.${other ? `<br><b>Also:</b> ${other.replace(/</g, "&lt;")}` : ""}<br><a href="#estimate" id="estRedo" style="color:var(--teal-dark);font-weight:600">Change my answers</a></div>`;
+  goStep(5);
+  const b = $("estBook"); if (b) b.addEventListener("click", () => goToCheckout(d));
+  $("estRedo").addEventListener("click", e => { e.preventDefault(); goStep(1); });
+}
 </script>
 </body>
 </html>
