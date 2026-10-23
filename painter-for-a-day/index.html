@@ -822,6 +822,7 @@ $("cbForm").addEventListener("submit", async e => {
   err.style.display = "none";
   const qs = new URLSearchParams(location.search);
   Object.assign(data, {
+    title: "PFAD call-back", form: "callback",
     source: SOURCE, page: PAGE_VARIANT, offer: OFFER.on ? OFFER.label : "regular",
     utm_campaign: qs.get("utm_campaign") || "", utm_content: qs.get("utm_content") || "",
     page_url: location.href, submitted_at: new Date().toISOString()
@@ -967,6 +968,7 @@ $("estForm").addEventListener("submit", async e => {
   Object.assign(data, {
     job: `ESTIMATOR: about ${r.days} day${r.days > 1 ? "s" : ""} (${priceTxt}), ${r.hours} est. hours.\n` +
          `Areas: ${s.items}${s.extras ? "; rooms include " + s.extras : ""}.\n${s.details}.` + (other ? `\nAlso: ${other}` : ""),
+    title: `PFAD estimate: about ${r.days} day${r.days > 1 ? "s" : ""}, ${priceTxt}`,
     form: "estimator", estimate_days: r.days, estimate_hours: r.hours, estimate_price: r.days <= MAX_DAYS ? PRICES[r.days] : "",
     source: SOURCE, page: PAGE_VARIANT, offer: OFFER.on ? OFFER.label : "regular",
     utm_campaign: qs.get("utm_campaign") || "", utm_content: qs.get("utm_content") || "",
