@@ -290,6 +290,10 @@ footer img{height:28px;width:auto;margin:0 auto 12px}
 .est-form label{font-size:13px;font-weight:600;color:var(--ink-2);display:grid;gap:5px}
 .est-form .two-c{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .est-fine{font-size:12px;color:var(--muted);margin-top:8px}
+.est-teaser{text-align:center;background:var(--bg-2,#f4f6f7);border-radius:14px;padding:16px;margin-bottom:18px}
+.est-teaser .days{font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:4px 0}
+.est-teaser p{color:var(--ink-2);font-size:14px}
+.est-form label small{font-weight:400;color:var(--muted)}
 .est-res{text-align:center}
 .est-res .days{font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:6px 0 4px}
 .est-res .price{font-size:22px;font-weight:700;margin-bottom:4px}
@@ -429,17 +433,18 @@ if (POSTHOG_KEY.startsWith("phc_")) {
       </div>
 
       <div class="est-step" data-step="4">
-        <h3>Where should we send your estimate?</h3>
-        <p class="q">Your estimate shows on the next screen, and we'll email you a copy.</p>
+        <div class="est-teaser"><span class="eyebrow">Your estimate</span><div class="days" id="estTeaser"></div><p>with one Envision painter</p></div>
+        <h3>Last step: where should we send your price?</h3>
+        <p class="q" id="estGateQ">Enter your details to see your price.</p>
         <form class="est-form" id="estForm" novalidate>
           <label>Your name<input type="text" name="name" autocomplete="name" required></label>
           <div class="two-c">
             <label>Phone<input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
-            <label>Email<input type="email" name="email" autocomplete="email" required></label>
+            <label><span>Email <small>(optional)</small></span><input type="email" name="email" autocomplete="email"></label>
           </div>
           <p class="est-err" id="estErr4"></p>
-          <div class="est-nav"><button class="back" type="button" data-back>← Back</button><button class="btn btn-primary" type="submit" id="estBtn">Show my estimate →</button></div>
-          <p class="est-fine">We'll only use your details to send your estimate and contact you about your project. No spam.</p>
+          <div class="est-nav"><button class="back" type="button" data-back>← Back</button><button class="btn btn-primary" type="submit" id="estBtn">Show my price →</button></div>
+          <p class="est-fine">No obligation. We'll call or text once to confirm your plan. No spam.</p>
         </form>
       </div>
 
@@ -934,6 +939,11 @@ function estSummary() {
 
 function goStep(n) {
   estStep = n;
+  if (n === 4) {   // show the day count now; the price comes after the contact details
+    const d = estimate().days;
+    $("estTeaser").textContent = d > MAX_DAYS ? "About 10+ days" : `About ${d} day${d > 1 ? "s" : ""}`;
+    $("estGateQ").textContent = OFFER.on ? "Enter your details to see your price and lock in the fall rate." : "Enter your details to see your price.";
+  }
   document.querySelectorAll("#est .est-step").forEach(s => s.classList.toggle("on", Number(s.dataset.step) === n));
   document.querySelectorAll("#est .est-prog span").forEach((s, i) => s.classList.toggle("on", i < n));
   const top = $("est").getBoundingClientRect().top;
@@ -957,8 +967,8 @@ $("estForm").addEventListener("submit", async e => {
   const f = e.target, err = $("estErr4"), btn = $("estBtn");
   const data = Object.fromEntries(new FormData(f).entries());
   ["name", "phone", "email"].forEach(k => data[k] = (data[k] || "").trim());
-  if (!data.name || data.phone.replace(/\D/g, "").length < 10 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) {
-    err.textContent = "Please add your name, a phone number and an email we can reach you at.";
+  if (!data.name || data.phone.replace(/\D/g, "").length < 10 || (data.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email))) {
+    err.textContent = data.email && data.name && data.phone.replace(/\D/g, "").length >= 10 ? "That email doesn't look right. Fix it or leave it blank." : "Please add your name and a phone number we can reach you at.";
     err.style.display = "block"; return;
   }
   err.style.display = "none";
