@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Painter For A Day | Envision Painting</title>
-<meta name="description" content="Skip the quote. Book a pro Envision painter for a full day, online in 2 minutes. Greater Victoria. 4.9★ from 275 Google reviews.">
-<meta property="og:title" content="Skip the quote. Book a painter for the day.">
+<meta name="description" content="That painting job you keep putting off? Book a pro Envision painter for a full day, online in 2 minutes. Greater Victoria. 4.9★ from 275 Google reviews.">
+<meta property="og:title" content="That painting job you keep putting off? Done in a day.">
 <meta property="og:description" content="A pro Envision painter at your place for a full 8-hour day. Book online in 2 minutes. Greater Victoria.">
 <meta property="og:image" content="https://book.envisionpainting.co/assets/envision-team-mobile.jpg">
 <link rel="icon" href="favicon.ico?v=2" type="image/x-icon" sizes="48x48">
@@ -100,6 +100,8 @@ header.nav img{height:34px;width:auto}
 .hero h1 em{font-style:normal;color:#5fd6e8}
 .hero p.lead{font-size:18px;color:#d4dde0;margin-bottom:26px;max-width:520px}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.hero-price{font-size:14px;color:#a9bcc1;margin:-10px 0 20px}
+.hero-price b{color:#fff}
 .ticks{list-style:none;display:grid;gap:8px;font-size:15px;color:#e4ecee}
 .ticks li::before{content:"✓";color:#5fd6e8;font-weight:800;margin-right:10px}
 .price-card{background:#fff;color:var(--ink);border-radius:20px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
@@ -389,12 +391,13 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
   <div class="hero">
     <div>
       <span class="rating-pill"><span class="stars">★★★★★</span> 4.9 from 275 Google reviews</span>
-      <h1>Skip the quote. <em>Book a painter for the day.</em></h1>
-      <p class="lead">A pro Envision painter at your place for a full 8 hours. No estimate visit, no waiting on a quote, no chasing contractors. Book online in 2 minutes and we'll call within 1 business day to lock in your date.</p>
+      <h1>That painting job you keep putting off? <em>Done in a day.</em></h1>
+      <p class="lead">Most painters won't take small jobs, or make you wait weeks for a quote. Book a pro Envision painter for the day. You point, they paint.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#estimate">See how many days I need →</a>
         <a class="btn btn-ghost" href="#book">Book my painter</a>
       </div>
+      <p class="hero-price" id="heroPrice"></p>
       <ul class="ticks">
         <li>8 full hours of professional painting</li>
         <li>Tools and clean-up included. Paint & materials added on top</li>
@@ -751,6 +754,7 @@ for (let d = 4; d <= MAX_DAYS; d++) {
 let selected = 1;
 
 $("pc-big").textContent = fmt(PRICES[1]);
+$("heroPrice").innerHTML = `<b>${fmt(PRICES[1])}</b> first day, less for extra days` + (OFFER.on && OFFER.ends ? ` · ${OFFER.label.toLowerCase().replace(/^\w/, c => c.toUpperCase())} ends ${OFFER.ends}` : "");
 if (PRICES[1] < REG[1]) $("pc-was").textContent = "Regular " + fmt(REG[1]);
 DAY_RATES.forEach((r, i) => $("pc-d" + (i + 1)).textContent = fmt(r));
 $("pc-d4").textContent = fmt(DAY_RATES[2]);
