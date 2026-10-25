@@ -1005,7 +1005,12 @@ $("estForm").addEventListener("submit", async e => {
     await fetch(CALLBACK_WEBHOOK, { method: "POST", body: new URLSearchParams(data) });
   } catch (x) { /* still show the estimate; the call-back form below is the fallback */ }
   if (window.fbq) fbq("track", "Lead", { content_name: "Painter For A Day estimate", value: r.days <= MAX_DAYS ? PRICES[r.days] : 0, currency: "CAD" });
-  if (window.posthog && posthog.__loaded) posthog.capture("estimate_submitted", { days: r.days, hours: r.hours, source: SOURCE });
+  if (window.posthog && posthog.__loaded) {
+    // Tie this visitor (and their session replay) to the lead so they can be found by name/phone in PostHog.
+    const phoneId = "+1" + data.phone.replace(/\D/g, "").slice(-10);
+    posthog.identify(phoneId, { name: data.name, phone: data.phone, email: data.email || undefined, lead_source: "pfad_estimator" });
+    posthog.capture("estimate_submitted", { days: r.days, hours: r.hours, source: SOURCE });
+  }
   showResult(r, s, other);
 });
 
