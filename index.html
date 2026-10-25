@@ -415,7 +415,7 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
       <div class="row"><span>Each day after</span><b id="pc-d4"></b></div>
       <hr>
       <p style="font-size:13px;color:var(--muted);margin:-6px 0 14px">Labour only. Paint & applied materials are added on top.</p>
-      <a class="btn btn-primary" style="width:100%" href="#book">Choose my days</a>
+      <a class="btn btn-primary" style="width:100%" href="#estimate">See how many days I need →</a>
     </div>
   </div>
 
@@ -575,38 +575,6 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
     </div>
   </section>
 
-  <section id="callback">
-    <div class="callback">
-      <div>
-        <span class="eyebrow">Not ready to book?</span>
-        <h2>Get a free call-back</h2>
-        <p class="sub">Tell us what needs painting and we'll call you within 1 business day. Ask anything, get a straight answer on how many days you need, and decide from there. No pressure, no estimate visit.</p>
-        <ul>
-          <li>A real Envision team member calls you, not a call centre</li>
-          <li>Honest advice on 1, 2 or 3+ days</li>
-          <li>No obligation to book</li>
-        </ul>
-      </div>
-      <div>
-        <form class="cb-form" id="cbForm" novalidate>
-          <div class="cb-row">
-            <label>Your name<input name="name" autocomplete="name" required></label>
-            <label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
-          </div>
-          <label>Email<input name="email" type="email" autocomplete="email"></label>
-          <label>What needs painting?<textarea name="job" placeholder="e.g. hallway and stairwell walls, two bedroom doors"></textarea></label>
-          <button class="btn btn-primary" type="submit" id="cbBtn">Get my free call-back →</button>
-          <p class="cb-err" id="cbErr"></p>
-          <p class="cb-fine">We'll only use your details to contact you about your painting project.</p>
-        </form>
-        <div class="cb-done" id="cbDone">
-          <div class="tick">✓</div>
-          <h3>Thanks, we'll be in touch!</h3>
-          <p>Someone from Envision will call you within 1 business day (Mon–Fri). Prefer to talk now? Call <a href="tel:+12508132530">(250) 813-2530</a>.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
   <section>
@@ -708,10 +676,10 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
 
   <section>
     <div class="final">
-      <h2>Stop putting it off. Book your painter today.</h2>
-      <p>Two minutes to book. We'll call within 1 business day.</p>
-      <a class="btn btn-primary" href="#book">Book my painter →</a>
-      <p style="margin:16px 0 0;font-size:15px"><a href="#callback" style="color:#5fd6e8;font-weight:600">Have questions first? Get a free call-back →</a></p>
+      <h2>Stop putting it off.</h2>
+      <p>See how many days your job needs, and your price, in 60 seconds. We'll call within 1 business day.</p>
+      <a class="btn btn-primary" href="#estimate">See how many days I need →</a>
+      <p style="margin:16px 0 0;font-size:15px"><a href="tel:+12508132530" style="color:#5fd6e8;font-weight:600">Questions? Call (250) 813-2530</a></p>
     </div>
   </section>
 </div>
@@ -733,8 +701,8 @@ fbq('track', 'ViewContent', { content_name: 'Painter For A Day', content_categor
 </div>
 
 <div class="sticky">
-  <div class="t">Your total <b id="total-m"></b>+ paint & materials</div>
-  <button class="btn btn-primary checkout">Book & pay →</button>
+  <div class="t"><b>How many days?</b>Free estimate · 60 seconds</div>
+  <a class="btn btn-primary" href="#estimate">See my days →</a>
 </div>
 
 <script>
@@ -802,7 +770,7 @@ document.querySelectorAll(".opt").forEach(b => {
   b.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && !e.target.closest("select")) { e.preventDefault(); chooseOpt(b); } });
 });
 optDays.addEventListener("change", () => { const b = optDays.closest(".opt"); const n = Number(optDays.value); $("optTitle").textContent = n + " Days"; renderOpt(b, n); chooseOpt(b); });
-function setTotal() { const t = fmt(PRICES[selected]) + " + GST"; $("total").textContent = t; $("total-m").textContent = t; }
+function setTotal() { const t = fmt(PRICES[selected]) + " + GST"; $("total").textContent = t; if ($("total-m")) $("total-m").textContent = t; }
 setTotal();
 
 // Every Book button opens the "how many days?" popup; choosing an option goes straight to checkout.
@@ -863,7 +831,7 @@ const PAGE_VARIANT = "facebook_offer";
 // Free call-back form: posts the lead to a Zapier webhook (Zapier then creates the Jobber request / HighLevel contact and emails the office).
 const CALLBACK_WEBHOOK = "https://hooks.zapier.com/hooks/catch/1324050/41j2kor/";   // Zapier "Catch Hook" URL
 document.querySelectorAll('a[href="#callback"], a[href="#estimate"]').forEach(a => a.addEventListener("click", () => { if (typeof closeDayModal === "function") closeDayModal(); }));
-$("cbForm").addEventListener("submit", async e => {
+$("cbForm")?.addEventListener("submit", async e => {
   e.preventDefault();
   const f = e.target, err = $("cbErr"), btn = $("cbBtn");
   const data = Object.fromEntries(new FormData(f).entries());
@@ -1057,6 +1025,9 @@ function showResult(r, s, other) {
   const b = $("estBook"); if (b) b.addEventListener("click", () => goToCheckout(d));
   $("estRedo").addEventListener("click", e => { e.preventDefault(); goStep(1); });
 }
+// Hide the sticky "See my days" bar while the estimator itself is on screen (it would cover the Next button).
+const stickyBar = document.querySelector(".sticky");
+if (stickyBar && "IntersectionObserver" in window) new IntersectionObserver(([e]) => { stickyBar.style.visibility = e.isIntersecting ? "hidden" : ""; }).observe($("est"));
 </script>
 </body>
 </html>
