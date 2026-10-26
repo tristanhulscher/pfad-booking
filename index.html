@@ -1004,7 +1004,9 @@ $("estForm").addEventListener("submit", async e => {
   try {
     await fetch(CALLBACK_WEBHOOK, { method: "POST", body: new URLSearchParams(data) });
   } catch (x) { /* still show the estimate; the call-back form below is the fallback */ }
-  if (window.fbq) fbq("track", "Lead", { content_name: "Painter For A Day estimate", value: r.days <= MAX_DAYS ? PRICES[r.days] : 0, currency: "CAD" });
+  // eventID lets Meta merge duplicate Lead events for the same person (e.g. the Facebook in-app browser re-sending on return).
+  const leadEventId = "pfad-lead-" + data.phone.replace(/\D/g, "").slice(-10) + "-" + new Date().toISOString().slice(0, 10);
+  if (window.fbq) fbq("track", "Lead", { content_name: "Painter For A Day estimate", value: r.days <= MAX_DAYS ? PRICES[r.days] : 0, currency: "CAD" }, { eventID: leadEventId });
   if (window.posthog && posthog.__loaded) {
     // Tie this visitor (and their session replay) to the lead so they can be found by name/phone in PostHog.
     const phoneId = "+1" + data.phone.replace(/\D/g, "").slice(-10);
