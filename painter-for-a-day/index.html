@@ -294,6 +294,9 @@ footer img{height:28px;width:auto;margin:0 auto 12px}
 .est-fine{font-size:12px;color:var(--muted);margin-top:8px}
 .est-hold{text-align:left;max-width:560px;margin:22px auto 0;padding-top:20px;border-top:1px solid var(--line)}
 .est-hold h3{font-size:19px}
+.est-fill{background:#f0fbf3;border:1px solid #b9e6c6;border-radius:12px;padding:12px 14px;font-size:14px;color:var(--ink-2);max-width:560px;margin:0 auto 16px;text-align:left}
+.est-addmore{margin-top:8px;background:none;border:1.5px solid var(--teal);color:var(--teal-dark);font:inherit;font-weight:700;font-size:14px;border-radius:10px;padding:8px 14px;cursor:pointer}
+.est-when{font-size:13px;color:var(--muted);margin-top:10px}
 .est-thanks{background:rgba(0,160,184,.08);border-radius:12px;padding:14px 16px;font-size:15px;color:var(--ink-2)}
 .est-teaser{text-align:center;background:var(--bg-2,#f4f6f7);border-radius:14px;padding:16px;margin-bottom:18px}
 .est-teaser .days{font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:4px 0}
@@ -367,7 +370,7 @@ if (POSTHOG_KEY.startsWith("phc_")) {
     <div>
       <span class="rating-pill"><span class="stars">★★★★★</span> 4.9 from 275 Google reviews</span>
       <h1>That painting job you keep putting off? <em>Done.</em></h1>
-      <p class="lead">Many painters won't take small jobs, or make you wait weeks for a quote. Book a pro Envision painter by the day. You point, they paint.</p>
+      <p class="lead"><b style="color:#fff">Small jobs welcome.</b> That's exactly what Painter For A Day is for. Book a pro Envision painter by the day, with no estimate visit and no waiting on a quote. You point, they paint.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#estimate">See how many days I need →</a>
         <a class="btn btn-ghost" href="#book">Book my painter</a>
@@ -673,7 +676,7 @@ if (POSTHOG_KEY.startsWith("phc_")) {
       <details><summary>How much gets done in a day?</summary><p>Most single rooms (walls) or a batch of touch-ups fit in one day. After you book, send us photos and we'll tell you honestly if it's more or less. Your painter also walks through the job with you at the start of the day so you know what's realistic.</p></details>
       <details><summary>I'm a realtor or landlord. Do I need to be there?</summary><p>No. Someone just needs to let the painter in at the start of the day, or leave a key or lockbox code. Vacant units, listings and rentals between tenants are no problem.</p></details>
       <details><summary>Is paint included?</summary><p>No. The day rate covers your painter's time and tools. Paint and any applied materials (primer, stain, sealer, etc.) are added on top. If you already have paint, great. If not, tell us your colours and we'll pick it up for you and add it to your invoice, on top of the day rate. Paint-store runs count toward your 8 hours.</p></details>
-      <details><summary>When will my painter come?</summary><p>We call within 1 business day of booking (Mon–Fri, 8:30am–4:30pm) to pick a date that works for you.</p></details>
+      <details><summary>When will my painter come?</summary><p>Whenever suits you. Book now to lock in your price, then schedule your day for this week or months from now. We call within 1 business day of booking (Mon–Fri, 8:30am–4:30pm) to pick a date that works for you.</p></details>
       <details><summary>What if I need a little more time?</summary><p>If your job just needs a little extra time to wrap up, we'll take care of it and only charge for the portion of a day used, at your discounted next-day rate. For example, 2 extra hours is a quarter of a day. We'll always check with you before going past your booked time.</p></details>
       <details><summary>What if my job takes less than a full day?</summary><p>We'll suggest other small jobs to fill the rest of the day. If there's nothing else, the unused time becomes a credit toward a future Envision booking.</p></details>
       <details><summary>What if I need to reschedule or cancel?</summary><p>Life happens. Reschedule anytime at no charge. If you need to cancel, bookings aren't refundable, but the full amount you paid becomes a credit toward a future Envision booking, and credits never expire.</p></details>
@@ -729,7 +732,7 @@ for (let d = 4; d <= MAX_DAYS; d++) {
 let selected = 1;
 
 $("pc-big").textContent = fmt(PRICES[1]);
-$("heroPrice").innerHTML = `<b>${fmt(PRICES[1])}</b> first day, less for extra days` + (OFFER.on && OFFER.ends ? ` · ${OFFER.label.toLowerCase().replace(/^\w/, c => c.toUpperCase())} ends ${OFFER.ends}` : "");
+$("heroPrice").innerHTML = `<b>${fmt(PRICES[1])}</b> first day, less for extra days · ` + (OFFER.on && OFFER.ends ? `<b>book by ${OFFER.ends}, schedule anytime</b>` : `<b>book now, schedule anytime</b>`);
 if (PRICES[1] < REG[1]) $("pc-was").textContent = "Regular " + fmt(REG[1]);
 DAY_RATES.forEach((r, i) => $("pc-d" + (i + 1)).textContent = fmt(r));
 $("pc-d4").textContent = fmt(DAY_RATES[2]);
@@ -1019,13 +1022,15 @@ $("estForm").addEventListener("submit", async e => {
 function showResult(r, s, other) {
   const d = r.days, big = d > ESTIMATOR.bigJobDays, tooBig = d > MAX_DAYS;
   const dLbl = d + (d === 1 ? " day" : " days");
+  const spare = tooBig ? 0 : d * 8 - r.hours * ESTIMATOR.buffer;   // unused hours in the booked days
   $("estRes").innerHTML = `
     <span class="eyebrow">Your estimate</span>
     <div class="days">About ${tooBig ? "10+ days" : dLbl}</div>
     ${tooBig ? "" : `<div class="price">${REG[d] > PRICES[d] ? `<s>${fmt(REG[d])}</s>` : ""}${fmt(PRICES[d])} <span style="font-weight:500;font-size:16px;color:var(--muted)">+ GST · paint extra</span></div>`}
     <p class="note">Most jobs like yours take about ${tooBig ? "10 or more days" : dLbl} with one painter. Your painter walks the job with you at the start of the day and confirms what's realistic.</p>
+    ${spare >= 2 ? `<div class="est-fill"><b>Small jobs welcome!</b> Your list is about ${Math.max(1, Math.round(r.hours))} hours, and you'll have a full ${d * 8}-hour ${d === 1 ? "day" : "booking"}. Add anything else you've been putting off: doors, trim, touch-ups, a ceiling.<br><button type="button" class="est-addmore" id="estAddMore">+ Add more to my day</button></div>` : ""}
     ${big ? `<div class="est-big">For a project this size, a <a href="https://envisionpainting.ca" target="_blank" rel="noopener">free estimate</a> with a fixed price and our 10-year warranty may be the better deal. We'll call you either way.</div>` : ""}
-    ${tooBig ? `<a class="btn btn-primary" href="tel:+12508132530">Call (250) 813-2530</a>` : `<button class="btn btn-primary" type="button" id="estBook">Book my ${dLbl} →</button>`}
+    ${tooBig ? `<a class="btn btn-primary" href="tel:+12508132530">Call (250) 813-2530</a>` : `<button class="btn btn-primary" type="button" id="estBook">Book my ${dLbl} →</button><p class="est-when">Book now${OFFER.on ? " at the fall price" : ""}, schedule anytime. We call within 1 business day to pick a date that suits you.</p>`}
     <div class="est-hold"><div id="estHoldHead"${estLeadSent ? ' style="display:none"' : ""}><h3>${tooBig ? "Leave your number and we'll plan it with you" : OFFER.on ? "Want us to hold your fall price?" : "Have a question first?"}</h3>
       <p class="q">Leave your number and we'll call within 1 business day to confirm how many days you need${tooBig ? "" : " and book your date"}.</p></div><div id="estHoldSlot"></div></div>
     <div class="sumry"><b>Based on:</b> ${s.items}${s.extras ? "; rooms include " + s.extras : ""}. ${s.details[0].toUpperCase() + s.details.slice(1)}.${other ? `<br><b>Also:</b> ${other.replace(/</g, "&lt;")}` : ""}<br><a href="#estimate" id="estRedo" style="color:var(--teal-dark);font-weight:600">Change my answers</a></div>`;
@@ -1034,6 +1039,8 @@ function showResult(r, s, other) {
   goStep(5);
   const b = $("estBook"); if (b) b.addEventListener("click", () => goToCheckout(d));
   $("estRedo").addEventListener("click", e => { e.preventDefault(); goStep(1); });
+  const more = $("estAddMore");
+  if (more) more.addEventListener("click", () => { if (window.posthog && posthog.__loaded) posthog.capture("estimator_add_more", { hours: r.hours }); goStep(1); });
 }
 // Visitors from the estimate ads land straight on the estimator (matches the ad's "Get Quote" button).
 if (/^pfad_.*leads$/.test(new URLSearchParams(location.search).get("utm_campaign") || "") && !location.hash) {
