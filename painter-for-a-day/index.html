@@ -255,6 +255,16 @@ footer img{height:28px;width:auto;margin:0 auto 12px}
 .cb-err{display:none;color:#b42318;font-size:14px;text-align:center}
 .sheet .alt{display:block;text-align:center;margin-top:12px;font-size:14px;font-weight:600;color:var(--teal-dark);text-decoration:none}
 
+.small-jobs{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;max-width:1000px;margin:0 auto}
+.sj-photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sj-photos figure{margin:0}
+.sj-photos img{width:100%;height:auto;border-radius:14px;display:block}
+.sj-photos figcaption{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
+.sj-list{list-style:none;display:grid;gap:12px;font-size:16px;color:var(--ink-2)}
+.sj-list li{padding-left:30px;position:relative}
+.sj-list li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:800}
+.sj-list b{color:var(--ink)}
+@media (max-width:860px){.small-jobs{grid-template-columns:1fr;gap:22px}}
 /* estimator */
 .est{background:#fff;border:2px solid var(--teal);border-radius:24px;padding:32px;max-width:860px;margin:0 auto;box-shadow:0 10px 40px rgba(0,0,0,.06)}
 .est-prog{display:flex;gap:6px;margin-bottom:22px}
@@ -459,6 +469,28 @@ if (POSTHOG_KEY.startsWith("phc_")) {
 
       <div class="est-step est-res" data-step="5" id="estRes"></div>
     </div>
+  </section>
+
+  <section id="small-jobs">
+    <div class="center">
+      <span class="eyebrow">Small jobs welcome</span>
+      <h2>Perfect for the little things you keep meaning to fix</h2>
+      <p class="sub">Scuffs, dings and tired trim make a whole home look worn. A pro Envision painter makes them disappear.</p>
+    </div>
+    <div class="small-jobs">
+      <div class="sj-photos">
+        <figure><img src="/assets/touchup-door-before.jpg" alt="Front entry masked and prepped before painting" width="720" height="960" loading="lazy"><figcaption>Before: masked and prepped</figcaption></figure>
+        <figure><img src="/assets/touchup-door-after.jpg" alt="Freshly painted front door and trim" width="720" height="960" loading="lazy"><figcaption>After: fresh door and trim</figcaption></figure>
+      </div>
+      <ul class="sj-list">
+        <li><b>Scuffed walls and banged-up trim</b> in hallways, stairwells and entries</li>
+        <li><b>Nail holes and patch-and-paint</b> after taking down pictures or moving out</li>
+        <li><b>Doors and door frames</b> that are chipped, marked or yellowed</li>
+        <li><b>Touch-ups before listing</b>, or between tenants</li>
+        <li><b>That one room</b> you've been meaning to get to for years</li>
+      </ul>
+    </div>
+    <p class="center" style="margin-top:22px"><a class="btn btn-primary" href="#estimate">See how many days I need →</a></p>
   </section>
 
   <section>
@@ -872,6 +904,7 @@ const ESTIMATOR = {
     { key: "laundry",  label: "Laundry / mudroom",  hours: [2.5, 3, 4] }
   ],
   items: [                           // counted items: hours each
+    { key: "touchups",  label: "Touch-ups & clean-up", hint: "Scuffs, banged trim, nail holes · per room", hours: 1.5 },
     { key: "doors",     label: "Interior doors",    hint: "Both sides", hours: 1 },
     { key: "closets",   label: "Closet doors",      hint: "Per pair", hours: 1.5 },
     { key: "frontdoor", label: "Front door",        hint: "Outside face", hours: 2 }
