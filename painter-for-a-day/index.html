@@ -260,11 +260,14 @@ footer img{height:28px;width:auto;margin:0 auto 12px}
 .sj-photos figure{margin:0}
 .sj-photos img{width:100%;height:auto;border-radius:14px;display:block}
 .sj-photos figcaption{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
+.sj-more{grid-template-columns:repeat(4,1fr);max-width:1000px;margin:28px auto 0}
+.sj-quote{max-width:1000px;margin:14px auto 0;text-align:right;font-size:14px;color:var(--ink-2);font-style:italic}
+.sj-quote span{font-style:normal;color:var(--muted);white-space:nowrap}
 .sj-list{list-style:none;display:grid;gap:12px;font-size:16px;color:var(--ink-2)}
 .sj-list li{padding-left:30px;position:relative}
 .sj-list li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:800}
 .sj-list b{color:var(--ink)}
-@media (max-width:860px){.small-jobs{grid-template-columns:1fr;gap:22px}}
+@media (max-width:860px){.small-jobs{grid-template-columns:1fr;gap:22px}.sj-more{grid-template-columns:1fr 1fr;margin-top:22px}.sj-quote{text-align:center}}
 /* estimator */
 .est{background:#fff;border:2px solid var(--teal);border-radius:24px;padding:32px;max-width:860px;margin:0 auto;box-shadow:0 10px 40px rgba(0,0,0,.06)}
 .est-prog{display:flex;gap:6px;margin-bottom:22px}
@@ -490,6 +493,13 @@ if (POSTHOG_KEY.startsWith("phc_")) {
         <li><b>That one room</b> you've been meaning to get to for years</li>
       </ul>
     </div>
+    <div class="sj-photos sj-more">
+      <figure><img src="/assets/touchup-drywall-before.jpg" alt="Hole in a textured wall, floor and trim masked off" width="720" height="960" loading="lazy"><figcaption>Before: hole in the wall</figcaption></figure>
+      <figure><img src="/assets/touchup-drywall-patched.jpg" alt="Same wall with the hole patched and smoothed" width="720" height="960" loading="lazy"><figcaption>Patched and ready for paint</figcaption></figure>
+      <figure><img src="/assets/pfad-nursery-stripes.jpg" alt="Nursery with blue walls and a green and white striped accent wall" width="720" height="960" loading="lazy"><figcaption>Nursery stripes, freshly painted</figcaption></figure>
+      <figure><img src="/assets/pfad-nursery-protected.jpg" alt="Same nursery with furniture under protective covers and freshly painted blue walls" width="720" height="960" loading="lazy"><figcaption>Furniture protected, walls finished</figcaption></figure>
+    </div>
+    <p class="sj-quote">&ldquo;Wonderful experience using Envision Painting for our nursery! &hellip; a stress free job on our end.&rdquo; <span>&#9733;&#9733;&#9733;&#9733;&#9733; Google review</span></p>
     <p class="center" style="margin-top:22px"><a class="btn btn-primary" href="#estimate">See how many days I need →</a></p>
   </section>
 
